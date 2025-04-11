@@ -14,6 +14,11 @@ public class ShadowDonkeyKong extends AbstractGame {
     private final Properties GAME_PROPS;
     private final Properties MESSAGE_PROPS;
     private TitlePage titlePage;
+//    private GameScreen gameScreen;
+    private Ladder ladder;
+    private Platform platform;
+
+    private boolean isRunning = false;
 
 
     public ShadowDonkeyKong(Properties gameProps, Properties messageProps) {
@@ -25,6 +30,9 @@ public class ShadowDonkeyKong extends AbstractGame {
         this.GAME_PROPS = gameProps;
         this.MESSAGE_PROPS = messageProps;
         titlePage = new TitlePage(GAME_PROPS, MESSAGE_PROPS);
+//        gameScreen = new GameScreen(GAME_PROPS, MESSAGE_PROPS);
+        ladder = new Ladder(GAME_PROPS);
+        platform = new Platform(GAME_PROPS);
     }
 
     /**
@@ -33,10 +41,19 @@ public class ShadowDonkeyKong extends AbstractGame {
      */
     @Override
     protected void update(Input input) {
+
         if (input.wasPressed(Keys.ESCAPE)) {
             Window.close();
         }
-        titlePage.renderTitle();
+        if (isRunning) {
+            ladder.renderLadder();
+            platform.renderPlatform();
+        } else {
+            titlePage.renderTitle();
+        }
+        if (input.wasPressed(Keys.ENTER)) {
+            isRunning = true;
+        }
     }
 
 
@@ -48,12 +65,10 @@ public class ShadowDonkeyKong extends AbstractGame {
      *
      * @param args Command-line arguments (not used in this game).
      */
-    public static void main(String[] args) {
+    public static void main (String[]args) {
         Properties gameProps = IOUtils.readPropertiesFile("res/app.properties");
         Properties messageProps = IOUtils.readPropertiesFile("res/message_en.properties");
         ShadowDonkeyKong game = new ShadowDonkeyKong(gameProps, messageProps);
         game.run();
     }
-
-
-}
+        }
