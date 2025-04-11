@@ -14,10 +14,7 @@ public class ShadowDonkeyKong extends AbstractGame {
     private final Properties GAME_PROPS;
     private final Properties MESSAGE_PROPS;
     private TitlePage titlePage;
-//    private GameScreen gameScreen;
-    private Ladder ladder;
-    private Platform platform;
-    private Barrel barrel;
+    private GameScreen gameScreen;
 
     private boolean isRunning = false;
 
@@ -31,10 +28,8 @@ public class ShadowDonkeyKong extends AbstractGame {
         this.GAME_PROPS = gameProps;
         this.MESSAGE_PROPS = messageProps;
         titlePage = new TitlePage(GAME_PROPS, MESSAGE_PROPS);
-//        gameScreen = new GameScreen(GAME_PROPS, MESSAGE_PROPS);
-        ladder = new Ladder(GAME_PROPS);
-        platform = new Platform(GAME_PROPS);
-        barrel = new Barrel(GAME_PROPS);
+        gameScreen = new GameScreen(GAME_PROPS);
+
     }
 
     /**
@@ -48,9 +43,7 @@ public class ShadowDonkeyKong extends AbstractGame {
             Window.close();
         }
         if (isRunning) {
-            ladder.renderLadder();
-            platform.renderPlatform();
-            barrel.renderBarrel();
+            gameScreen.renderScreen();
         } else {
             titlePage.renderTitle();
         }
