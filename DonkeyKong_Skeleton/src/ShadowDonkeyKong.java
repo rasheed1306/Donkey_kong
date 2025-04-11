@@ -27,7 +27,7 @@ public class ShadowDonkeyKong extends AbstractGame {
         this.GAME_PROPS = gameProps;
         this.MESSAGE_PROPS = messageProps;
         homePage = new HomePage(GAME_PROPS, MESSAGE_PROPS);
-        gameScreen = new GameScreen(GAME_PROPS);
+        gameScreen = new GameScreen(GAME_PROPS, MESSAGE_PROPS);
 
     }
 
@@ -60,7 +60,7 @@ public class ShadowDonkeyKong extends AbstractGame {
      *
      * @param args Command-line arguments (not used in this game).
      */
-    public static void main (String[]args) {
+    public static void main (String[] args) {
         Properties gameProps = IOUtils.readPropertiesFile("res/app.properties");
         Properties messageProps = IOUtils.readPropertiesFile("res/message_en.properties");
         ShadowDonkeyKong game = new ShadowDonkeyKong(gameProps, messageProps);

@@ -15,7 +15,7 @@ public class Player  {
         player = new Point(Double.parseDouble(gameProps.getProperty("mario.start.x")),Double.parseDouble(gameProps.getProperty("mario.start.y")));
     }
 
-    protected void renderPlayer(Input input) {
+    public void renderPlayer(Input input) {
         picture.draw(player.x,player.y);
         if (input.isDown(Keys.LEFT)) {
             player = new Point(player.x - STEP_SIZE, player.y);
@@ -33,4 +33,7 @@ public class Player  {
         }
     }
 
+    public Point getPlayerPosition() {
+        return player;
+    }
 }
