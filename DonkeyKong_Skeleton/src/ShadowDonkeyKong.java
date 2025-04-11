@@ -13,12 +13,7 @@ public class ShadowDonkeyKong extends AbstractGame {
 
     private final Properties GAME_PROPS;
     private final Properties MESSAGE_PROPS;
-    private final Font TITLE_FONT;
-    private final Font PROMPT_FONT;
-    private final String TITLE;
-    private final String PROMPT;
-    private final double TITLE_Y;
-    private final double PROMPT_Y;
+    private TitlePage titlePage;
 
 
     public ShadowDonkeyKong(Properties gameProps, Properties messageProps) {
@@ -26,18 +21,10 @@ public class ShadowDonkeyKong extends AbstractGame {
                 Integer.parseInt(gameProps.getProperty("window.height")),
                 messageProps.getProperty("home.title"));
 
-        int TITLE_SIZE = Integer.parseInt(gameProps.getProperty("home.title.fontSize"));
-        int PROMPT_SIZE = Integer.parseInt(gameProps.getProperty("home.prompt.fontSize"));
-        this.TITLE_FONT = new Font(gameProps.getProperty("font"), TITLE_SIZE);
-        this.PROMPT_FONT = new Font(gameProps.getProperty("font"), PROMPT_SIZE);
-        this.TITLE = messageProps.getProperty("home.title");
-        this.PROMPT = messageProps.getProperty("home.prompt");
-        this.TITLE_Y = Double.parseDouble(gameProps.getProperty("home.title.y"));
-        this.PROMPT_Y = Double.parseDouble(gameProps.getProperty("home.prompt.y"));
-
         // updates instance variables to reflect properties of game
         this.GAME_PROPS = gameProps;
         this.MESSAGE_PROPS = messageProps;
+        titlePage = new TitlePage(GAME_PROPS, MESSAGE_PROPS);
     }
 
     /**
@@ -49,8 +36,7 @@ public class ShadowDonkeyKong extends AbstractGame {
         if (input.wasPressed(Keys.ESCAPE)) {
             Window.close();
         }
-        TITLE_FONT.drawString(TITLE, (Window.getWidth() - TITLE_FONT.getWidth(TITLE)) / 2 , TITLE_Y);
-        PROMPT_FONT.drawString(PROMPT, (Window.getWidth() - PROMPT_FONT.getWidth(PROMPT)) / 2, PROMPT_Y);
+        titlePage.renderTitle();
     }
 
 
