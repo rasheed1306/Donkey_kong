@@ -2,7 +2,7 @@ import bagel.*;
 import java.util.Properties;
 
 public class Platform {
-    public final Image platform = new Image("res/platform.png");
+    private final Image platform = new Image("res/platform.png");
     private int[][] platformCoords;
     private String[] platformStrings;
     private int platformCount;
@@ -11,7 +11,7 @@ public class Platform {
     public Platform(Properties gameProps) {
         this.platformCount = gameProps.getProperty("platforms").split(";").length;
         platformStrings = gameProps.getProperty("platforms").split(";");
-        this.platformCoords = new int[platformCount+1][2];
+        this.platformCoords = new int[platformCount][2];
 
         for (int i = 0; i < platformCount; i++) {
             coords = platformStrings[i].split(",");
