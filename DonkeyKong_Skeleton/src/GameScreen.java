@@ -8,6 +8,7 @@ public class GameScreen {
     private final Hammer hammer;
     private final Donkey donkey;
     private final Player player;
+    private final Score score;
     private final Image background = new Image("res/background.png");
 
     public GameScreen(Properties gameProps) {
@@ -17,6 +18,7 @@ public class GameScreen {
         this.hammer = new Hammer(gameProps);
         this.donkey = new Donkey(gameProps);
         this.player = new Player(gameProps);
+        this.score = new Score(gameProps);
     }
 
     public void renderScreen(Input input) {
@@ -27,7 +29,7 @@ public class GameScreen {
         hammer.renderHammer();
         donkey.renderDonkey();
         player.renderPlayer(input);
-//        player.renderPlayer();
+        score.getScore(input);
     }
 }
 

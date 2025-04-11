@@ -5,7 +5,7 @@ import java.util.Properties;
  * Handles the title page rendering for the game.
  * Contains common functionality for displaying title screens.
  */
-public class TitlePage {
+public class HomePage {
     private final Font TITLE_FONT;
     private final Font PROMPT_FONT;
     private final String TITLE;
@@ -16,7 +16,7 @@ public class TitlePage {
     private int PROMPT_SIZE;
     private final Image background = new Image("res/background.png");
 
-    public TitlePage(Properties gameProps, Properties messageProps) {
+    public HomePage(Properties gameProps, Properties messageProps) {
         this.TITLE_SIZE = Integer.parseInt(gameProps.getProperty("home.title.fontSize"));
         this.PROMPT_SIZE = Integer.parseInt(gameProps.getProperty("home.prompt.fontSize"));
         this.TITLE_FONT = new Font(gameProps.getProperty("font"), TITLE_SIZE);

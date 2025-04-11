@@ -13,7 +13,7 @@ public class ShadowDonkeyKong extends AbstractGame {
 
     private final Properties GAME_PROPS;
     private final Properties MESSAGE_PROPS;
-    private TitlePage titlePage;
+    private HomePage homePage;
     private GameScreen gameScreen;
     private boolean isRunning = false;
 
@@ -26,7 +26,7 @@ public class ShadowDonkeyKong extends AbstractGame {
         // updates instance variables to reflect properties of game
         this.GAME_PROPS = gameProps;
         this.MESSAGE_PROPS = messageProps;
-        titlePage = new TitlePage(GAME_PROPS, MESSAGE_PROPS);
+        homePage = new HomePage(GAME_PROPS, MESSAGE_PROPS);
         gameScreen = new GameScreen(GAME_PROPS);
 
     }
@@ -44,7 +44,7 @@ public class ShadowDonkeyKong extends AbstractGame {
         if (isRunning) {
             gameScreen.renderScreen(input);
         } else {
-            titlePage.renderTitle();
+            homePage.renderTitle();
         }
         if (input.wasPressed(Keys.ENTER)) {
             isRunning = true;
