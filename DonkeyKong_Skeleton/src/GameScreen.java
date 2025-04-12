@@ -11,10 +11,10 @@ public class GameScreen {
     private final Player player;
     private final Score score;
     private final EndGamePage lost;
-    private final Image background = new Image("res/background.png");
-
     protected static int scorePoints = 0;
     public static final double SCORE_DISTANCE = 20;
+    private final Image background = new Image("res/background.png");
+
 
     public GameScreen(Properties gameProps, Properties messageProps) {
         this.platform = new Platform(gameProps);
@@ -39,7 +39,6 @@ public class GameScreen {
 
         for (Point barrel : barrels.getBarrelPositions()) {
             if (player.getPlayerPosition().distanceTo(barrel) <= SCORE_DISTANCE) {
-                background.draw(Window.getWidth() / 2., Window.getHeight() / 2.);
                 lost.renderLostGame(scorePoints);
 //                score.getScore(scorePoints+=20);
 

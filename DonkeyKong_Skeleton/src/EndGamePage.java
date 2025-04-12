@@ -2,7 +2,6 @@ import bagel.*;
 import java.util.Properties;
 import bagel.util.Point;
 
-
 public class EndGamePage {
     private final String won;
     private final String score;
@@ -12,6 +11,7 @@ public class EndGamePage {
     private final Font scoresFont;
     private final Point statusPoint;
     private final Point scoresPoint;
+    private final Image background = new Image("res/background.png");
 
 
     public EndGamePage(Properties gameProps, Properties messageProps) {
@@ -23,17 +23,18 @@ public class EndGamePage {
         statusFont = new Font(gameProps.getProperty("font"), Integer.parseInt(gameProps.getProperty("gameEnd.status.fontSize")));
         scoresFont = new Font(gameProps.getProperty("font"), Integer.parseInt(gameProps.getProperty("gameEnd.scores.fontSize")));
 
-        statusPoint = new Point((Window.getHeight() / 2), Double.parseDouble(gameProps.getProperty("gameEnd.status.y")));
-        scoresPoint = new Point((Window.getHeight() / 2), Double.parseDouble(gameProps.getProperty("gameEnd.scores.y")));
-
+        statusPoint = new Point( ((Window.getWidth() - statusFont.getWidth(lost)) / 2), Double.parseDouble(gameProps.getProperty("gameEnd.status.y")));
+        scoresPoint = new Point( ((Window.getWidth() - scoresFont.getWidth(score))/ 2), Double.parseDouble(gameProps.getProperty("gameEnd.scores.y")));
     }
 
     public void renderLostGame(int score) {
+        background.draw(Window.getWidth() / 2., Window.getHeight() / 2.);
         statusFont.drawString(lost, statusPoint.x, statusPoint.y);
         scoresFont.drawString((this.score + " " + score), scoresPoint.x, scoresPoint.y);
-        statusFont.drawString(_continue, statusPoint.x, statusPoint.y + 100.);
+        statusFont.drawString(_continue, ((Window.getWidth() - statusFont.getWidth(_continue))/ 2), Window.getHeight() - 100);
     }
     public void renderWonGame(int score) {
+        background.draw(Window.getWidth() / 2., Window.getHeight() / 2.);
         statusFont.drawString(won, statusPoint.x, statusPoint.y);
         scoresFont.drawString((this.score + " " + score), scoresPoint.x, scoresPoint.y);
 
