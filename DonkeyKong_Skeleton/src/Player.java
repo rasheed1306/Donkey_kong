@@ -1,6 +1,6 @@
 import bagel.*;
 import java.util.Properties;
-import bagel.util.Point;
+import bagel.util.*;
 
 public class Player  {
     private final Image playerRight = new Image("res/mario_right.png");
@@ -10,13 +10,15 @@ public class Player  {
 
     // these are static because they should exist regardless of whether the game is being played
     private static final double STEP_SIZE = 3.5;
+    private static final double LADDER_STEP_SIZE = 2;
     private static final double GRAVITY = 0.2;
     private static final double TERMINAL_VELOCITY = -10;
     private static final double JUMP_VELOCITY = 5;
 
-    private boolean isJumping = false;
+    protected boolean isJumping = false;
+    protected boolean isClimbing = false;
 
-
+    private double climbDisplacement = 0;
     private double velocityY = 0;
     private final double groundLevel;
 
@@ -25,20 +27,28 @@ public class Player  {
         groundLevel = Double.parseDouble(gameProps.getProperty("mario.start.y"));
     }
 
+
     public void renderPlayer(Input input) {
         picture.draw(player.x,player.y);
+
         if (input.isDown(Keys.LEFT)) {
             player = new Point(player.x - STEP_SIZE, player.y);
             picture = playerLeft;
         }
+
         if (input.isDown(Keys.RIGHT)) {
             player = new Point(player.x + STEP_SIZE, player.y);
             picture = playerRight;
         }
-        if (input.isDown(Keys.SPACE) && !isJumping) {
+
+        if (input.isDown(Keys.SPACE) && !isClimbing && !isJumping) {
             isJumping = true;
             velocityY = JUMP_VELOCITY;
         }
+        if (input.isDown(Keys.SPACE) && isClimbing) {
+            player = new Point(player.x, player.y - LADDER_STEP_SIZE);
+        }
+
         if (isJumping) {
             velocityY = Math.max(velocityY - GRAVITY, TERMINAL_VELOCITY);
             player = new Point(player.x, player.y - velocityY);
@@ -49,6 +59,7 @@ public class Player  {
                 isJumping = false;
             }
         }
+
     }
 
     public Point getPlayerPosition() {

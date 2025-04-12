@@ -1,6 +1,6 @@
 import bagel.*;
 import java.util.Properties;
-import bagel.util.Point;
+import bagel.util.*;
 
 public class GameScreen {
     private final Platform platform;
@@ -13,6 +13,7 @@ public class GameScreen {
     private final EndGamePage lost;
     protected static int scorePoints = 0;
     public static final double SCORE_DISTANCE = 20;
+    public static final double LADDER_DISTANCE = 30;
     private final Image background = new Image("res/background.png");
 
 
@@ -25,6 +26,7 @@ public class GameScreen {
         this.player = new Player(gameProps);
         this.score = new Score(gameProps);
         this.lost = new EndGamePage(gameProps, messageProps);
+
     }
 
     public void renderScreen(Input input) {
@@ -41,11 +43,14 @@ public class GameScreen {
             if (player.getPlayerPosition().distanceTo(barrel) <= SCORE_DISTANCE) {
                 lost.renderLostGame(scorePoints);
 //                score.getScore(scorePoints+=20);
-
             }
         }
-
-
+        for (Rectangle ladder : ladder.getLadderBounds()) {
+            if (ladder.intersects(player.getPlayerPosition())) {
+                player.isClimbing = true;
+            }
+        }
+//ladder.intersects(player.getPlayerPosition().x, player.getPlayerPosition().y, 1, 1)
     }
 }
 
