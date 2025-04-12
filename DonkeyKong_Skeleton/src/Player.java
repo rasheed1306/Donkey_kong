@@ -16,7 +16,8 @@ public class Player  {
     private static final double JUMP_VELOCITY = 5;
 
     protected boolean isJumping = false;
-    protected boolean isClimbing = false;
+    protected boolean isOnLadder = false;
+    private boolean moved = false;
 
     private double climbDisplacement = 0;
     private double velocityY = 0;
@@ -32,32 +33,39 @@ public class Player  {
         picture.draw(player.x,player.y);
 
         if (input.isDown(Keys.LEFT)) {
-            player = new Point(player.x - STEP_SIZE, player.y);
+            player = new Point(Math.max(player.x - STEP_SIZE, 0), player.y);
             picture = playerLeft;
         }
 
         if (input.isDown(Keys.RIGHT)) {
-            player = new Point(player.x + STEP_SIZE, player.y);
+            player = new Point(Math.min(player.x + STEP_SIZE, Window.getWidth()), player.y);
             picture = playerRight;
         }
 
-        if (input.isDown(Keys.SPACE) && !isClimbing && !isJumping) {
+        if (input.isDown(Keys.SPACE) && !isOnLadder && !isJumping) {
             isJumping = true;
             velocityY = JUMP_VELOCITY;
         }
-        if (input.isDown(Keys.SPACE) && isClimbing) {
-            player = new Point(player.x, player.y - LADDER_STEP_SIZE);
+
+        if (input.isDown(Keys.SPACE) && isOnLadder) {
+//            isJumping = false;
+            player = new Point(player.x, Math.max(player.y - LADDER_STEP_SIZE,0));
+            moved = true;
         }
 
         if (isJumping) {
             velocityY = Math.max(velocityY - GRAVITY, TERMINAL_VELOCITY);
-            player = new Point(player.x, player.y - velocityY);
+            player = new Point(player.x, Math.max(player.y - velocityY,0));
 
             if (player.y >= groundLevel) {
                 player = new Point(player.x, groundLevel);
                 velocityY = 0;
                 isJumping = false;
             }
+        }
+
+        if (!moved) {
+            isOnLadder = false;
         }
 
     }

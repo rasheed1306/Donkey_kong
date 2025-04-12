@@ -16,6 +16,7 @@ public class GameScreen {
     public static final double LADDER_DISTANCE = 30;
     private final Image background = new Image("res/background.png");
 
+    boolean isOnLadder;
 
     public GameScreen(Properties gameProps, Properties messageProps) {
         this.platform = new Platform(gameProps);
@@ -45,12 +46,15 @@ public class GameScreen {
 //                score.getScore(scorePoints+=20);
             }
         }
+        isOnLadder = false;
         for (Rectangle ladder : ladder.getLadderBounds()) {
             if (ladder.intersects(player.getPlayerPosition())) {
-                player.isClimbing = true;
+                isOnLadder = true;
+                break;
             }
         }
-//ladder.intersects(player.getPlayerPosition().x, player.getPlayerPosition().y, 1, 1)
+        player.isOnLadder = isOnLadder;
+
     }
 }
 
