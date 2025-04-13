@@ -11,8 +11,9 @@ public class Timer {
     private final Point timerPosition;
 
 
-    protected int remainingTime;
+    private int remainingTime;
     private int currentFrame;
+    protected boolean isGameOver = false;
 
     public Timer(Properties gameProps) {
         font = new Font(gameProps.getProperty("font"), Integer.parseInt(gameProps.getProperty("gamePlay.score.fontSize")));
@@ -21,7 +22,8 @@ public class Timer {
     }
 
     public void updateTimer() {
-        currentFrame++;
+        if (!isGameOver && currentFrame < MAX_FRAMES)
+            currentFrame++;
     }
 
     public int getRemainingTime() {
@@ -39,5 +41,8 @@ public class Timer {
         currentFrame = 0;
     }
 
+    public int getEndTime() {
+        return remainingTime;
+    }
 
 }

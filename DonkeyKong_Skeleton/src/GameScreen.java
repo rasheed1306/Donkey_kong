@@ -13,7 +13,7 @@ public class GameScreen {
     private final Timer timer;
     private final Score score;
     private final EndGamePage endGamePage;
-    protected static int scorePoints = 0;
+    private static int scorePoints = 0;
     public static final double SCORE_DISTANCE = 20;
     public static final double LADDER_DISTANCE = 30;
     private final Image background = new Image("res/background.png");
@@ -21,6 +21,7 @@ public class GameScreen {
     boolean isOnLadder;
     boolean isOnPlatform;
     protected boolean isRunning;
+    private boolean scoreAdded = false;
 
     public GameScreen(Properties gameProps, Properties messageProps) {
         this.platform = new Platform(gameProps);
@@ -39,7 +40,7 @@ public class GameScreen {
         isOnLadder = false;
         for (Rectangle ladder : ladder.getLadderBounds()) {
             if (ladder.intersects(player.getPlayerBounds())) {
-                System.out.println("On ladder");
+//                System.out.println("On ladder");
                 isOnLadder = true;
                 break;
             }
@@ -52,7 +53,7 @@ public class GameScreen {
         isOnPlatform = false;
         for (Rectangle platform : platform.getPlatformBounds()) {
             if (platform.intersects(player.getPlayerBounds())) {
-                System.out.println("Player intersects platform");
+//                System.out.println("Player intersects platform");
                 isOnPlatform = true;
                 break;
             }
@@ -68,13 +69,18 @@ public class GameScreen {
                 if (player.hasHammer) {
                     System.out.println("Barrel " + i + " destroyed");
                     barrels.barrelDestroyed[i] = true;
+//                    scorePoints += 100;
                 }
                 else if (!player.hasHammer) {
+                    timer.isGameOver = true;
+//                    scorePoints += timer.getEndTime() * 30;
+//                    scoreAdded = true;
                     endGamePage.renderLostGame(scorePoints, input);
+
                     if (input.isDown(Keys.SPACE)) {
                         this.isRunning = false;
+                    }
                 }
-            }
         }
         }
     }
@@ -82,6 +88,7 @@ public class GameScreen {
     public void restartGame() {
         player.restartToStart();
         timer.resetTimer();
+        scoreAdded = false;
         scorePoints = 0;
     }
 
@@ -120,7 +127,7 @@ public class GameScreen {
         hammer.renderHammer();
         donkey.renderDonkey();
         player.renderPlayer(input);
-        System.out.println("Player position: " + player.getPlayerPosition());
+//        System.out.println("Player position: " + player.getPlayerPosition());
         score.getScore(scorePoints);
         timer.updateTimer();
         timer.renderTimer();
