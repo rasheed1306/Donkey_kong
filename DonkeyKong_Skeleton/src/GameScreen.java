@@ -78,6 +78,14 @@ public class GameScreen {
         scorePoints = 0;
     }
 
+    public void touchHammer() {
+        if (player.getPlayerBounds().intersects(hammer.getHammerBounds())) {
+            System.out.println("Player touched hammer");
+            hammer.isHammerHeld = true;
+            player.hasHammer = true;
+        }
+    }
+
     public void renderScreen(Input input) {
         isRunning = true;
         background.draw(Window.getWidth() / 2., Window.getHeight() / 2.);
@@ -93,9 +101,9 @@ public class GameScreen {
         timer.renderTimer();
 
         touchBarrel(input);
-//        touchPlatform();
-//        touchLadder();
-
+        touchPlatform();
+        touchLadder();
+        touchHammer();
     }
 }
 

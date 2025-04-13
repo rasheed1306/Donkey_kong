@@ -5,6 +5,12 @@ import bagel.util.*;
 public class Player  {
     private final Image playerRight = new Image("res/mario_right.png");
     private final Image playerLeft = new Image("res/mario_left.png");
+
+    private final Image playerHeldHammerRight = new Image("res/mario_hammer_right.png");
+    private final Image playerHeldHammerLeft = new Image("res/mario_hammer_left.png");
+
+    protected boolean hasHammer = false;
+
     private Point player;
     private Image picture = playerRight;
 
@@ -37,12 +43,20 @@ public class Player  {
 
         if (input.isDown(Keys.LEFT)) {
             player = new Point(Math.max(player.x - STEP_SIZE, 0), player.y);
-            picture = playerLeft;
+            if (hasHammer) {
+                picture = playerHeldHammerLeft;
+            } else {
+                picture = playerLeft;
+            }
         }
 
         if (input.isDown(Keys.RIGHT)) {
             player = new Point(Math.min(player.x + STEP_SIZE, Window.getWidth()), player.y);
-            picture = playerRight;
+            if (hasHammer) {
+                picture = playerHeldHammerRight;
+            } else {
+                picture = playerRight;
+            }
         }
 
         if (input.isDown(Keys.SPACE) && !isJumping && !isOnLadder) {
@@ -89,6 +103,7 @@ public class Player  {
         player = OriginalPosition;
         isJumping = false;
         isOnLadder = false;
+        hasHammer = false;
     }
 }
 

@@ -16,7 +16,7 @@ public class Barrel {
         for (int i = 0; i < barrelCount; i++) {
             String[] parts = gameProps.getProperty(barrels[i]).split(",");
             barrelCoords[i] = new Point(Integer.parseInt(parts[0]), Integer.parseInt(parts[1]));
-            barrelBounds[i] = new Rectangle(barrelCoords[i].x - barrel.getWidth() / 2, barrelCoords[i].y - barrel.getHeight() / 2, barrel.getWidth(), barrel.getHeight());
+            barrelBounds[i] = new Rectangle(barrelCoords[i].x, barrelCoords[i].y, barrel.getWidth(), barrel.getHeight());
         }
     }
 
