@@ -38,7 +38,7 @@ public class EndGamePage {
         background.draw(Window.getWidth() / 2., Window.getHeight() / 2.);
         statusFont.drawString(won, statusPoint.x, statusPoint.y);
         scoresFont.drawString((this.score + " " + score), scoresPoint.x, scoresPoint.y);
-
+        statusFont.drawString(_continue, ((Window.getWidth() - statusFont.getWidth(_continue))/ 2), Window.getHeight() - 100);
 
     }
 

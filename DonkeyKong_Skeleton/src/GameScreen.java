@@ -76,18 +76,6 @@ public class GameScreen {
                 }
             }
         }
-//        for (Rectangle barrel : barrels.getBarrelBounds()) {
-//            if (player.getPlayerBounds().intersects(barrel) && !player.hasHammer) {
-////                scorePoints += timer.remainingTime * 3;
-//                endGamePage.renderLostGame(scorePoints, input);
-//                if (input.isDown(Keys.SPACE)) {
-//                    this.isRunning = false;
-//                }
-//            } else if (player.getPlayerBounds().intersects(barrel) && player.hasHammer) {
-//                barrels.barrelDestroyed = true;
-//
-//            }
-
         }
     }
 
@@ -102,6 +90,24 @@ public class GameScreen {
             System.out.println("Player touched hammer");
             hammer.isHammerHeld = true;
             player.hasHammer = true;
+        }
+    }
+
+    public void touchDonkey(Input input) {
+        if (player.getPlayerBounds().intersects(donkey.getDonkeyBounds())) {
+            System.out.println("Player touched donkey");
+
+            if (!player.hasHammer) {
+                endGamePage.renderLostGame(scorePoints, input);
+                if (input.isDown(Keys.SPACE)) {
+                    this.isRunning = false;
+                }
+            } else if (player.hasHammer) {
+                endGamePage.renderWonGame(scorePoints);
+                if (input.isDown(Keys.SPACE)) {
+                    this.isRunning = false;
+                }
+            }
         }
     }
 
@@ -123,6 +129,7 @@ public class GameScreen {
         touchPlatform();
         touchLadder();
         touchHammer();
+        touchDonkey(input);
     }
 }
 
