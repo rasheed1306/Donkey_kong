@@ -89,7 +89,9 @@ public class GameScreen {
     public void touchDonkey() {
         if ((player.getPlayerBounds().intersects(donkey.getDonkeyBounds()))) {
             System.out.println("Player touches donkey");
+
             isWon = player.hasHammer;
+            timer.isGameOver = isWon;
             isRunning = false;
         }
     }
@@ -108,6 +110,9 @@ public class GameScreen {
     public void restartGame() {
         player.restartToStart();
         timer.resetTimer();
+
+        isWon = false;
+        isLost = false;
 
         for (int i = 0; i < barrels.barrelDestroyed.length; i++) {
             barrels.barrelDestroyed[i] = false;

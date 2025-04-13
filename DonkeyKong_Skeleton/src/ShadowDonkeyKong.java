@@ -1,14 +1,6 @@
 import bagel.*;
 import java.util.Properties;
 
-/**
- * The main class for the Shadow Donkey Kong game.
- * This class extends {@code AbstractGame} and is responsible for managing game initialization,
- * updates, rendering, and handling user input.
- *
- * It sets up the game world, initializes characters, platforms, ladders, and other game objects,
- * and runs the game loop to ensure smooth gameplay.
- */
 public class ShadowDonkeyKong extends AbstractGame {
 
     private final Properties GAME_PROPS;
@@ -37,10 +29,7 @@ public class ShadowDonkeyKong extends AbstractGame {
 
     }
 
-    /**
-     * Render the relevant screen based on the keyboard input given by the user and the status of the gameplay.
-     * @param input The current mouse/keyboard input.
-     */
+
     @Override
     protected void update(Input input) {
 
@@ -55,6 +44,9 @@ public class ShadowDonkeyKong extends AbstractGame {
             isLost = gameScreen.isLost;
             score = gameScreen.calulateScore();
         } else {
+//            isWon = gameScreen.isWon;
+//            isLost = gameScreen.isLost;
+//            score = gameScreen.calulateScore();
             if (isWon) {
                 shouldKeepShowing = endGamePage.renderWonGame(score, input);
             } else if (isLost) {
