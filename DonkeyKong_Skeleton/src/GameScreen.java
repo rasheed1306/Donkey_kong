@@ -61,14 +61,33 @@ public class GameScreen {
     }
 
     public void touchBarrel(Input input) {
-        for (Rectangle barrel : barrels.getBarrelBounds()) {
+        Rectangle[] barrelBounds = barrels.getBarrelBounds();
+        for (int i = 0; i < barrels.barrelCount; i++) {
+            Rectangle barrel = barrelBounds[i];
             if (player.getPlayerBounds().intersects(barrel)) {
-//                scorePoints += timer.remainingTime * 3;
-                endGamePage.renderLostGame(scorePoints, input);
-                if (input.isDown(Keys.SPACE)) {
-                    this.isRunning = false;
+                if (player.hasHammer) {
+                    System.out.println("Barrel " + i + " destroyed");
+                    barrels.barrelDestroyed[i] = true;
+                }
+                else if (!player.hasHammer) {
+                    endGamePage.renderLostGame(scorePoints, input);
+                    if (input.isDown(Keys.SPACE)) {
+                        this.isRunning = false;
                 }
             }
+        }
+//        for (Rectangle barrel : barrels.getBarrelBounds()) {
+//            if (player.getPlayerBounds().intersects(barrel) && !player.hasHammer) {
+////                scorePoints += timer.remainingTime * 3;
+//                endGamePage.renderLostGame(scorePoints, input);
+//                if (input.isDown(Keys.SPACE)) {
+//                    this.isRunning = false;
+//                }
+//            } else if (player.getPlayerBounds().intersects(barrel) && player.hasHammer) {
+//                barrels.barrelDestroyed = true;
+//
+//            }
+
         }
     }
 
