@@ -111,6 +111,7 @@ public class GameScreen {
         player.restartToStart();
         timer.resetTimer();
 
+        hammer.isHammerHeld = false;
         isWon = false;
         isLost = false;
 

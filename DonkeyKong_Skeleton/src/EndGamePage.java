@@ -13,9 +13,6 @@ public class EndGamePage {
     private final Point scoresPoint;
     private final Image background = new Image("res/background.png");
 
-    private boolean lostScreenShown = false;  // Track if lost screen was displayed
-    private boolean waitingForSpace = false;  // Track if waiting for player input
-
 
     public EndGamePage(Properties gameProps, Properties messageProps) {
         won = messageProps.getProperty("gameEnd.won");
