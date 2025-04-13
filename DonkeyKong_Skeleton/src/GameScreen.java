@@ -12,7 +12,7 @@ public class GameScreen {
 
     private final Timer timer;
     private final Score score;
-    private final EndGamePage lost;
+    private final EndGamePage endGamePage;
     protected static int scorePoints = 0;
     public static final double SCORE_DISTANCE = 20;
     public static final double LADDER_DISTANCE = 30;
@@ -20,6 +20,7 @@ public class GameScreen {
 
     boolean isOnLadder;
     boolean isOnPlatform;
+    protected boolean isRunning;
 
     public GameScreen(Properties gameProps, Properties messageProps) {
         this.platform = new Platform(gameProps);
@@ -29,12 +30,56 @@ public class GameScreen {
         this.donkey = new Donkey(gameProps);
         this.player = new Player(gameProps);
         this.score = new Score(gameProps);
-        this.lost = new EndGamePage(gameProps, messageProps);
+        this.endGamePage = new EndGamePage(gameProps, messageProps);
         this.timer = new Timer(gameProps);
 
     }
 
+    public void touchLadder() {
+        isOnLadder = false;
+        for (Rectangle ladder : ladder.getLadderBounds()) {
+            if (ladder.intersects(player.getPlayerBounds())) {
+                System.out.println("On ladder");
+                isOnLadder = true;
+                break;
+            }
+        }
+        player.isOnLadder = isOnLadder;
+
+    }
+
+    public void touchPlatform() {
+        isOnPlatform = false;
+        for (Rectangle platform : platform.getPlatformBounds()) {
+            if (platform.intersects(player.getPlayerBounds())) {
+                System.out.println("Player intersects platform");
+                isOnPlatform = true;
+                break;
+            }
+        }
+        player.isJumping = !isOnPlatform;
+    }
+
+    public void touchBarrel(Input input) {
+        for (Rectangle barrel : barrels.getBarrelBounds()) {
+            if (player.getPlayerBounds().intersects(barrel)) {
+//                scorePoints += timer.remainingTime * 3;
+                endGamePage.renderLostGame(scorePoints, input);
+                if (input.isDown(Keys.SPACE)) {
+                    this.isRunning = false;
+                }
+            }
+        }
+    }
+
+    public void restartGame() {
+        player.restartToStart();
+        timer.resetTimer();
+        scorePoints = 0;
+    }
+
     public void renderScreen(Input input) {
+        isRunning = true;
         background.draw(Window.getWidth() / 2., Window.getHeight() / 2.);
         platform.renderPlatform();
         barrels.renderBarrel();
@@ -47,32 +92,9 @@ public class GameScreen {
         timer.updateTimer();
         timer.renderTimer();
 
-        for (Point barrel : barrels.getBarrelPositions()) {
-            if (player.getPlayerPosition().distanceTo(barrel) <= SCORE_DISTANCE) {
-                lost.renderLostGame(scorePoints);
-                score.getScore(scorePoints+=20);
-            }
-        }
-        isOnLadder = false;
-        isOnPlatform = false;
-
-        for (Rectangle ladder : ladder.getLadderBounds()) {
-            if (ladder.intersects(player.getPlayerBounds())) {
-                System.out.println("On ladder");
-                isOnLadder = true;
-                break;
-            }
-        }
-
-        for (Rectangle platform : platform.getPlatformBounds()) {
-            if (platform.intersects(player.getPlayerBounds())) {
-                System.out.println("Player intersects platform");
-                isOnPlatform = true;
-                break;
-            }
-        }
-        player.isOnLadder = isOnLadder;
-        player.isJumping = !isOnPlatform;
+        touchBarrel(input);
+//        touchPlatform();
+//        touchLadder();
 
     }
 }

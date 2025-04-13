@@ -23,8 +23,11 @@ public class Player  {
     private double velocityY = 0;
     private final double groundLevel;
 
+    private Point OriginalPosition;
+
     public Player(Properties gameProps) {
         player = new Point(Double.parseDouble(gameProps.getProperty("mario.start.x")),Double.parseDouble(gameProps.getProperty("mario.start.y")));
+        OriginalPosition = player;
         groundLevel = Double.parseDouble(gameProps.getProperty("mario.start.y"));
     }
 
@@ -81,4 +84,12 @@ public class Player  {
         return new Rectangle(player.x , player.y, playerRight.getWidth(), playerRight.getHeight());
 
     }
+
+    public void restartToStart() {
+        player = OriginalPosition;
+        isJumping = false;
+        isOnLadder = false;
+    }
 }
+
+

@@ -35,5 +35,9 @@ public class Timer {
         font.drawString("Time Left " + remainingTime, timerPosition.x, timerPosition.y);
     }
 
+    public void resetTimer() {
+        currentFrame = 0;
+    }
+
 
 }

@@ -27,11 +27,12 @@ public class EndGamePage {
         scoresPoint = new Point( ((Window.getWidth() - scoresFont.getWidth(score))/ 2), Double.parseDouble(gameProps.getProperty("gameEnd.scores.y")));
     }
 
-    public void renderLostGame(int score) {
+    public void renderLostGame(int score, Input input) {
         background.draw(Window.getWidth() / 2., Window.getHeight() / 2.);
         statusFont.drawString(lost, statusPoint.x, statusPoint.y);
         scoresFont.drawString((this.score + " " + score), scoresPoint.x, scoresPoint.y);
         statusFont.drawString(_continue, ((Window.getWidth() - statusFont.getWidth(_continue))/ 2), Window.getHeight() - 100);
+
     }
     public void renderWonGame(int score) {
         background.draw(Window.getWidth() / 2., Window.getHeight() / 2.);

@@ -15,7 +15,7 @@ public class ShadowDonkeyKong extends AbstractGame {
     private final Properties MESSAGE_PROPS;
     private HomePage homePage;
     private GameScreen gameScreen;
-    private boolean isRunning = false;
+    protected boolean isRunning = false;
 
 
     public ShadowDonkeyKong(Properties gameProps, Properties messageProps) {
@@ -43,12 +43,15 @@ public class ShadowDonkeyKong extends AbstractGame {
         }
         if (isRunning) {
             gameScreen.renderScreen(input);
+            isRunning = gameScreen.isRunning;
         } else {
             homePage.renderTitle();
+            gameScreen.restartGame();
+            if (input.wasPressed(Keys.ENTER)) {
+                isRunning = true;
+            }
         }
-        if (input.wasPressed(Keys.ENTER)) {
-            isRunning = true;
-        }
+
     }
 
 
