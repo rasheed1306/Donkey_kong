@@ -9,6 +9,8 @@ public class GameScreen {
     private final Hammer hammer;
     private final Donkey donkey;
     private final Player player;
+
+    private final Timer timer;
     private final Score score;
     private final EndGamePage lost;
     protected static int scorePoints = 0;
@@ -17,6 +19,7 @@ public class GameScreen {
     private final Image background = new Image("res/background.png");
 
     boolean isOnLadder;
+    boolean isOnPlatform;
 
     public GameScreen(Properties gameProps, Properties messageProps) {
         this.platform = new Platform(gameProps);
@@ -27,6 +30,7 @@ public class GameScreen {
         this.player = new Player(gameProps);
         this.score = new Score(gameProps);
         this.lost = new EndGamePage(gameProps, messageProps);
+        this.timer = new Timer(gameProps);
 
     }
 
@@ -38,22 +42,37 @@ public class GameScreen {
         hammer.renderHammer();
         donkey.renderDonkey();
         player.renderPlayer(input);
+        System.out.println("Player position: " + player.getPlayerPosition());
         score.getScore(scorePoints);
+        timer.updateTimer();
+        timer.renderTimer();
 
         for (Point barrel : barrels.getBarrelPositions()) {
             if (player.getPlayerPosition().distanceTo(barrel) <= SCORE_DISTANCE) {
                 lost.renderLostGame(scorePoints);
-//                score.getScore(scorePoints+=20);
+                score.getScore(scorePoints+=20);
             }
         }
         isOnLadder = false;
+        isOnPlatform = false;
+
         for (Rectangle ladder : ladder.getLadderBounds()) {
-            if (ladder.intersects(player.getPlayerPosition())) {
+            if (ladder.intersects(player.getPlayerBounds())) {
+                System.out.println("On ladder");
                 isOnLadder = true;
                 break;
             }
         }
+
+        for (Rectangle platform : platform.getPlatformBounds()) {
+            if (platform.intersects(player.getPlayerBounds())) {
+                System.out.println("Player intersects platform");
+                isOnPlatform = true;
+                break;
+            }
+        }
         player.isOnLadder = isOnLadder;
+        player.isJumping = !isOnPlatform;
 
     }
 }

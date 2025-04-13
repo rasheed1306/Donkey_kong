@@ -42,14 +42,16 @@ public class Player  {
             picture = playerRight;
         }
 
-        if (input.isDown(Keys.SPACE) && !isOnLadder && !isJumping) {
+        if (input.isDown(Keys.SPACE) && !isJumping && !isOnLadder) {
             isJumping = true;
+            System.out.println("Jumping");
             velocityY = JUMP_VELOCITY;
         }
 
         if (input.isDown(Keys.SPACE) && isOnLadder) {
-//            isJumping = false;
+            isJumping = false;
             player = new Point(player.x, Math.max(player.y - LADDER_STEP_SIZE,0));
+            System.out.println("is climbing");
             moved = true;
         }
 
@@ -72,5 +74,11 @@ public class Player  {
 
     public Point getPlayerPosition() {
         return player;
+    }
+
+    public Rectangle getPlayerBounds() {
+//        return new Rectangle(player.x - playerRight.getWidth() / 2, player.y - playerRight.getHeight() / 2, playerRight.getWidth(), playerRight.getHeight());
+        return new Rectangle(player.x , player.y, playerRight.getWidth(), playerRight.getHeight());
+
     }
 }

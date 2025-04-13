@@ -11,17 +11,6 @@ public class Ladder {
     private Rectangle[] ladderBounds;
 
     public Ladder(Properties gameProps) {
-//        this.ladderCount = Integer.parseInt(gameProps.getProperty("ladder.count"));
-//        ladderCoords =  new Point[ladderCount];
-//        ladderBounds = new Rectangle[ladderCount];
-//
-//        for (int i = 0; i < ladderCount; i++) {
-//            String[] parts = gameProps.getProperty(ladders[i]).split(",");
-//            ladderCoords[i] = new Point(Integer.parseInt(parts[0]), Integer.parseInt(parts[1]));
-//            ladderBounds[i] = new Rectangle(ladderCoords[i].x, ladderCoords[i].y, ladder.getWidth(), ladder.getHeight());
-//        }
-//
-//    }
         this.ladderCount = Integer.parseInt(gameProps.getProperty("ladder.count"));
         ladderCoords = new Point[ladderCount];
         ladderBounds = new Rectangle[ladderCount];
@@ -29,7 +18,7 @@ public class Ladder {
         for (int i = 0; i < ladderCount; i++) {
             String[] parts = gameProps.getProperty(ladders[i]).split(",");
             ladderCoords[i] = new Point(Double.parseDouble(parts[0]), Double.parseDouble(parts[1]));
-            ladderBounds[i] = new Rectangle(ladderCoords[i].x, ladderCoords[i].y, ladder.getWidth(), ladder.getHeight() * 0.8);
+            ladderBounds[i] = new Rectangle(ladderCoords[i].x - ladder.getWidth() / 2, ladderCoords[i].y - ladder.getHeight() / 2 + 30, ladder.getWidth(), ladder.getHeight());
         }
     }
 

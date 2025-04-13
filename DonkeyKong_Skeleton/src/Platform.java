@@ -1,28 +1,41 @@
 import bagel.*;
 import java.util.Properties;
+import bagel.util.*;
 
 public class Platform {
     private final Image platform = new Image("res/platform.png");
-    private int[][] platformCoords;
+    private Point[] platformCoords;
     private String[] platformStrings;
     private int platformCount;
     private String[] coords;
+    private Rectangle[] platformBounds;
 
     public Platform(Properties gameProps) {
         this.platformCount = gameProps.getProperty("platforms").split(";").length;
         platformStrings = gameProps.getProperty("platforms").split(";");
-        this.platformCoords = new int[platformCount][2];
+        this.platformCoords = new Point[platformCount];
+        this.platformBounds = new Rectangle[platformCount];
 
         for (int i = 0; i < platformCount; i++) {
             coords = platformStrings[i].split(",");
-            this.platformCoords[i][0] = Integer.parseInt(coords[0].trim());
-            this.platformCoords[i][1] = Integer.parseInt(coords[1].trim());
+            this.platformCoords[i] = new Point(Double.parseDouble(coords[0].trim()), Double.parseDouble(coords[1].trim()));
+//            this.platformBounds[i] = new Rectangle(platformCoords[i].x - platform.getWidth() / 2, platformCoords[i].y - platform.getHeight() / 2, platform.getWidth(), platform.getHeight());
+            System.out.println("Width is: " + platform.getWidth() + "Height is: " + platform.getHeight());
+            System.out.println("platform left x is " + platform.getWidth() + "Height is: " + platform.getHeight());
+
+        }
+    }
+    public void renderPlatform() {
+        for (int i = 0; i < platformCount; i++) {
+            platform.draw(platformCoords[i].x, platformCoords[i].y);
         }
     }
 
-    public void renderPlatform() {
+    public Rectangle[] getPlatformBounds() {
         for (int i = 0; i < platformCount; i++) {
-            platform.draw(platformCoords[i][0], platformCoords[i][1]);
+            platformBounds[i] = new Rectangle(platformCoords[i].x - platform.getWidth() / 2, platformCoords[i].y, platform.getWidth(), platform.getHeight());
         }
+        return platformBounds;
     }
+
 }
