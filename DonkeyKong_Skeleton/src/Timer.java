@@ -39,10 +39,15 @@ public class Timer {
 
     public void resetTimer() {
         currentFrame = 0;
+        isGameOver = false;
     }
 
     public int getEndTime() {
-        return remainingTime;
+        if (isGameOver) {
+            return remainingTime;
+        } else {
+            return 0;
+        }
     }
 
 }
