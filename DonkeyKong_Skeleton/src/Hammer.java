@@ -1,5 +1,6 @@
 import bagel.*;
 import java.util.Properties;
+import bagel.util.*;
 
 
 public class Hammer {
@@ -13,5 +14,9 @@ public class Hammer {
     }
     public void renderHammer() {
         hammer.draw(hammerStartCoords[0], hammerStartCoords[1]);
+    }
+
+    public Rectangle getHammerBounds() {
+        return hammer.getBoundingBox();
     }
 }

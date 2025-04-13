@@ -1,5 +1,6 @@
 import bagel.*;
 import java.util.Properties;
+import bagel.util.*;
 
 
 public class Donkey {
@@ -15,5 +16,9 @@ public class Donkey {
 
     public void renderDonkey() {
         donkey.draw(donkeyStartCoords[0], donkeyStartCoords[1]);
+    }
+
+    public Rectangle getDonkeyBounds() {
+        return donkey.getBoundingBox();
     }
 }
