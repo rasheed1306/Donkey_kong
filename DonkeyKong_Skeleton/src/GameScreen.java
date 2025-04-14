@@ -39,23 +39,22 @@ public class GameScreen {
     }
 
     public void touchLadder() {
-        isOnLadder = false;
+        player.isOnLadder = false;
         for (Rectangle ladder : ladder.getLadderBounds()) {
             if (ladder.intersects(player.getPlayerBounds())) {
-//                System.out.println("On ladder");
-                isOnLadder = true;
+                System.out.println("On ladder");
+                player.isOnLadder = true;
+//                player.isJumping = false;
                 break;
             }
         }
-        player.isOnLadder = isOnLadder;
-
     }
 
     public void touchPlatform() {
         isOnPlatform = false;
         for (Rectangle platform : platform.getPlatformBounds()) {
             if (platform.intersects(player.getPlayerBounds())) {
-//                System.out.println("Player intersects platform");
+                System.out.println("Player intersects platform");
                 isOnPlatform = true;
                 break;
             }
@@ -91,6 +90,8 @@ public class GameScreen {
             System.out.println("Player touches donkey");
 
             isWon = player.hasHammer;
+            isLost = !isWon;
+
             timer.isGameOver = isWon;
             isRunning = false;
         }
@@ -138,7 +139,7 @@ public class GameScreen {
         hammer.renderHammer();
         donkey.renderDonkey();
         player.renderPlayer(input);
-        System.out.println("Player position: " + player.getPlayerPosition());
+//        System.out.println("Player position: " + player.getPlayerPosition());
         score.getScore(calulateScore());
         timer.updateTimer();
         timer.renderTimer();

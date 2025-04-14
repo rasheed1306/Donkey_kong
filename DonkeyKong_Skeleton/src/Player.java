@@ -76,11 +76,11 @@ public class Player  {
             velocityY = Math.max(velocityY - GRAVITY, TERMINAL_VELOCITY);
             player = new Point(player.x, Math.max(player.y - velocityY,0));
 
-            if (player.y >= groundLevel) {
-                player = new Point(player.x, groundLevel);
-                velocityY = 0;
-                isJumping = false;
-            }
+//            if (player.y >= groundLevel) {
+//                player = new Point(player.x, groundLevel);
+//                velocityY = 0;
+//            }
+            isJumping = false;
         }
 
         if (!moved) {
@@ -95,7 +95,11 @@ public class Player  {
 
     public Rectangle getPlayerBounds() {
 //        return new Rectangle(player.x - playerRight.getWidth() / 2, player.y - playerRight.getHeight() / 2, playerRight.getWidth(), playerRight.getHeight());
-        return new Rectangle(player.x , player.y, playerRight.getWidth(), playerRight.getHeight());
+        if (!hasHammer) {
+            return new Rectangle(player.x, player.y, playerRight.getWidth(), playerRight.getHeight());
+        } else {
+            return new Rectangle(player.x, player.y, playerHeldHammerRight.getWidth(), playerHeldHammerRight.getHeight() - 10);
+        }
 
     }
 

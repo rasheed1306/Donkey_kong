@@ -41,9 +41,6 @@ public class ShadowDonkeyKong extends AbstractGame {
     }
     protected void updateGameScreen(Input input) {
         gameScreen.renderScreen(input);
-//        isRunning = gameScreen.isRunning;
-//        isWon = gameScreen.isWon;
-//        isLost = gameScreen.isLost;
         score = gameScreen.calulateScore();
     }
 
