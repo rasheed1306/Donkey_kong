@@ -13,7 +13,7 @@ public class GameScreen {
     private final Timer timer;
     private final Score score;
     private final EndGamePage endGamePage;
-    private int scorePoints;
+    private int scorePoints = 0;
     public static final double SCORE_DISTANCE = 20;
     public static final double LADDER_DISTANCE = 30;
     private final Image background = new Image("res/background.png");
@@ -21,7 +21,7 @@ public class GameScreen {
     boolean isOnLadder;
     boolean isOnPlatform;
     protected boolean isRunning;
-    private boolean scoreAdded = false;
+    protected boolean isScoreAdded;
     protected boolean isWon = false;
     protected boolean isLost = false;
 
@@ -54,8 +54,9 @@ public class GameScreen {
         isOnPlatform = false;
         for (Rectangle platform : platform.getPlatformBounds()) {
             if (platform.intersects(player.getPlayerBounds())) {
-                System.out.println("Player intersects platform");
+//                System.out.println("Player intersects platform");
                 isOnPlatform = true;
+                isScoreAdded = false;
                 break;
             }
         }
@@ -97,13 +98,33 @@ public class GameScreen {
         }
     }
 
+//    public void barrelJumping() {
+//        for (Rectangle area : barrels.getJumpingBarrelBounds()) {
+//            if (area.intersects(player.getPlayerBounds()) && player.isJumping) {
+//                scorePoints += 30;
+//            }
+//        }
+//    }
+
     public int calulateScore() {
-        scorePoints = 0;
+//        scorePoints = 0;
         for ( Boolean destroyed : barrels.barrelDestroyed) {
             if (destroyed) {
                 scorePoints+=100;
             }
         }
+
+        for (Rectangle area : barrels.getJumpingBarrelBounds()) {
+            if (area.intersects(player.getPlayerBounds())) {
+                if (!isScoreAdded) {
+                    scorePoints += 30;
+                    isScoreAdded = true;
+                }
+            } else {
+//                isScoreAdded = false;
+            }
+        }
+
         scorePoints += timer.getEndTime();
         return scorePoints;
     }

@@ -10,6 +10,9 @@ public class Barrel {
     private String[] barrels = {"barrel.1", "barrel.2", "barrel.3", "barrel.4", "barrel.5"};
 
     protected boolean[] barrelDestroyed;
+    double[] jumpingBarrelHeights;
+    Rectangle[] jumpingBarrelBounds;
+
 
     public Barrel(Properties gameProps) {
         barrelCount = Integer.parseInt(gameProps.getProperty("barrel.count"));
@@ -22,6 +25,8 @@ public class Barrel {
             barrelBounds[i] = new Rectangle(barrelCoords[i].x, barrelCoords[i].y, barrel.getWidth(), barrel.getHeight());
             barrelDestroyed[i] = false;
         }
+        System.out.println(barrel.getWidth() + " Rasheed " + barrel.getHeight());
+
     }
 
     public void renderBarrel() {
@@ -38,5 +43,16 @@ public class Barrel {
 
     public Rectangle[] getBarrelBounds() {
         return barrelBounds;
+    }
+
+    public Rectangle[] getJumpingBarrelBounds() {
+        jumpingBarrelBounds = new Rectangle[barrelCount];
+        jumpingBarrelHeights = new double[barrelCount];
+
+        for (int i = 0; i < barrelCount; i++) {
+            jumpingBarrelHeights[i] = barrelBounds[i].top() - 32.5;
+            jumpingBarrelBounds[i] = new Rectangle(barrelCoords[i].x, jumpingBarrelHeights[i], barrel.getWidth(), 32.5);
+        }
+        return jumpingBarrelBounds;
     }
 }

@@ -19,10 +19,6 @@ public class Platform {
         for (int i = 0; i < platformCount; i++) {
             coords = platformStrings[i].split(",");
             this.platformCoords[i] = new Point(Double.parseDouble(coords[0].trim()), Double.parseDouble(coords[1].trim()));
-//            this.platformBounds[i] = new Rectangle(platformCoords[i].x - platform.getWidth() / 2, platformCoords[i].y - platform.getHeight() / 2, platform.getWidth(), platform.getHeight());
-            System.out.println("Width is: " + platform.getWidth() + "Height is: " + platform.getHeight());
-            System.out.println("platform left x is " + platform.getWidth() + "Height is: " + platform.getHeight());
-
         }
     }
     public void renderPlatform() {

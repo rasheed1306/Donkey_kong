@@ -20,6 +20,7 @@ public class Player  {
     private static final double GRAVITY = 0.2;
     private static final double TERMINAL_VELOCITY = -10;
     private static final double JUMP_VELOCITY = 5;
+    protected static final double MAX_HEIGHT = 62.5;
 
     protected boolean isJumping = false;
     protected boolean isOnLadder = false;
