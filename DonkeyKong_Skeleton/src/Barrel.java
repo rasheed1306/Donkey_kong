@@ -10,6 +10,7 @@ public class Barrel {
     private String[] barrels = {"barrel.1", "barrel.2", "barrel.3", "barrel.4", "barrel.5"};
 
     protected boolean[] barrelDestroyed;
+    protected boolean[] isBarrelScoreAdded;
     double[] jumpingBarrelHeights;
     Rectangle[] jumpingBarrelBounds;
 
@@ -18,12 +19,14 @@ public class Barrel {
         barrelCount = Integer.parseInt(gameProps.getProperty("barrel.count"));
         barrelCoords = new Point[barrelCount];
         barrelBounds = new Rectangle[barrelCount];
+        isBarrelScoreAdded = new boolean[barrelCount];
         barrelDestroyed = new boolean[barrelCount];
         for (int i = 0; i < barrelCount; i++) {
             String[] parts = gameProps.getProperty(barrels[i]).split(",");
             barrelCoords[i] = new Point(Integer.parseInt(parts[0]), Integer.parseInt(parts[1]));
             barrelBounds[i] = new Rectangle(barrelCoords[i].x, barrelCoords[i].y, barrel.getWidth(), barrel.getHeight());
             barrelDestroyed[i] = false;
+            isBarrelScoreAdded[i] = false;
         }
         System.out.println(barrel.getWidth() + " Rasheed " + barrel.getHeight());
 

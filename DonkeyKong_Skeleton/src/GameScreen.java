@@ -54,7 +54,7 @@ public class GameScreen {
         isOnPlatform = false;
         for (Rectangle platform : platform.getPlatformBounds()) {
             if (platform.intersects(player.getPlayerBounds())) {
-//                System.out.println("Player intersects platform");
+                System.out.println("Player intersects platform");
                 isOnPlatform = true;
                 isScoreAdded = false;
                 break;
@@ -66,6 +66,7 @@ public class GameScreen {
     public void touchBarrel(Input input) {
         Rectangle[] barrelBounds = barrels.getBarrelBounds();
         for (int i = 0; i < barrels.barrelCount; i++) {
+            boolean[] isBarrelScoreAdded = barrels.barrelDestroyed;
             Rectangle barrel = barrelBounds[i];
             if (player.getPlayerBounds().intersects(barrel)) {
                 if (player.hasHammer) {
@@ -108,14 +109,23 @@ public class GameScreen {
 
     public int calulateScore() {
 //        scorePoints = 0;
-        for ( Boolean destroyed : barrels.barrelDestroyed) {
-            if (destroyed) {
-                scorePoints+=100;
+//        for ( Boolean destroyed : barrels.barrelDestroyed) {
+//            if (destroyed && barrels.isBarrelScoreAdded) {
+//                scorePoints+=100;
+//
+//            }
+//        }
+
+        for (int i = 0; i < barrels.barrelCount; i++) {
+            if (barrels.barrelDestroyed[i] && !barrels.isBarrelScoreAdded[i]) {
+                scorePoints += 100;
+                barrels.isBarrelScoreAdded[i] = true;
             }
         }
 
+
         for (Rectangle area : barrels.getJumpingBarrelBounds()) {
-            if (area.intersects(player.getPlayerBounds())) {
+            if (area.intersects(player.getPlayerBounds()) && player.isJumping) {
                 if (!isScoreAdded) {
                     scorePoints += 30;
                     isScoreAdded = true;
