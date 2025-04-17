@@ -12,13 +12,9 @@ public class GameScreen {
 
     private final Timer timer;
     private final Score score;
-    private final EndGamePage endGamePage;
     private int scorePoints = 0;
-    public static final double SCORE_DISTANCE = 20;
-    public static final double LADDER_DISTANCE = 30;
     private final Image background = new Image("res/background.png");
 
-    boolean isOnLadder;
     boolean isOnPlatform;
     protected boolean isRunning;
     protected boolean isScoreAdded;
@@ -33,7 +29,6 @@ public class GameScreen {
         this.donkey = new Donkey(gameProps);
         this.player = new Player(gameProps);
         this.score = new Score(gameProps);
-        this.endGamePage = new EndGamePage(gameProps, messageProps);
         this.timer = new Timer(gameProps);
 
     }
@@ -44,7 +39,6 @@ public class GameScreen {
             if (ladder.intersects(player.getPlayerBounds())) {
                 System.out.println("On ladder");
                 player.isClimbing = true;
-//                player.isJumping = false;
                 break;
             }
         }
@@ -66,20 +60,14 @@ public class GameScreen {
     public void touchBarrel(Input input) {
         Rectangle[] barrelBounds = barrels.getBarrelBounds();
         for (int i = 0; i < barrels.barrelCount; i++) {
-            boolean[] isBarrelScoreAdded = barrels.barrelDestroyed;
             Rectangle barrel = barrelBounds[i];
             if (player.getPlayerBounds().intersects(barrel)) {
                 if (player.hasHammer) {
                     System.out.println("Barrel " + i + " destroyed");
                     barrels.barrelDestroyed[i] = true;
-//                    scorePoints += 100;
                 } else if (!player.hasHammer) {
                     timer.isGameOver = true;
                     isLost = true;
-//                    System.out.println(timer.getEndTime());
-//                    scorePoints += timer.getEndTime() * 30;
-//                    scoreAdded = true;
-//                    endGamePage.renderLostGame(scorePoints, input);
                     isRunning = false;
                 }
             }
@@ -99,22 +87,7 @@ public class GameScreen {
         }
     }
 
-//    public void barrelJumping() {
-//        for (Rectangle area : barrels.getJumpingBarrelBounds()) {
-//            if (area.intersects(player.getPlayerBounds()) && player.isJumping) {
-//                scorePoints += 30;
-//            }
-//        }
-//    }
-
-    public int calulateScore() {
-//        scorePoints = 0;
-//        for ( Boolean destroyed : barrels.barrelDestroyed) {
-//            if (destroyed && barrels.isBarrelScoreAdded) {
-//                scorePoints+=100;
-//
-//            }
-//        }
+    public int calculateScore() {
 
         for (int i = 0; i < barrels.barrelCount; i++) {
             if (barrels.barrelDestroyed[i] && !barrels.isBarrelScoreAdded[i]) {
@@ -123,15 +96,12 @@ public class GameScreen {
             }
         }
 
-
         for (Rectangle area : barrels.getJumpingBarrelBounds()) {
             if (area.intersects(player.getPlayerBounds()) && player.isJumping) {
                 if (!isScoreAdded) {
                     scorePoints += 30;
                     isScoreAdded = true;
                 }
-            } else {
-//                isScoreAdded = false;
             }
         }
 
@@ -178,7 +148,7 @@ public class GameScreen {
         donkey.renderDonkey();
         player.renderPlayer(input);
 //        System.out.println("Player position: " + player.getPlayerPosition());
-        score.getScore(calulateScore());
+        score.getScore(calculateScore());
         timer.updateTimer();
         timer.renderTimer();
 

@@ -41,7 +41,7 @@ public class ShadowDonkeyKong extends AbstractGame {
     }
     protected void updateGameScreen(Input input) {
         gameScreen.renderScreen(input);
-        score = gameScreen.calulateScore();
+        score = gameScreen.calculateScore();
     }
 
     protected void handleEndGameState(Input input) {
