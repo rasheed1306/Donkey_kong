@@ -18,7 +18,7 @@ public class Ladder {
         for (int i = 0; i < ladderCount; i++) {
             String[] parts = gameProps.getProperty(ladders[i]).split(",");
             ladderCoords[i] = new Point(Double.parseDouble(parts[0]), Double.parseDouble(parts[1]));
-            ladderBounds[i] = new Rectangle(ladderCoords[i].x, ladderCoords[i].y, ladder.getWidth(), ladder.getHeight() - 30);
+            ladderBounds[i] = new Rectangle(ladderCoords[i].x + 10, ladderCoords[i].y, ladder.getWidth() - 15, ladder.getHeight() - 30);
         }
     }
 

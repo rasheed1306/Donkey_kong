@@ -23,7 +23,7 @@ public class Player  {
     protected static final double MAX_HEIGHT = 62.5;
 
     protected boolean isJumping = false;
-    protected boolean isOnLadder = false;
+    protected boolean isClimbing = false;
     private boolean moved = false;
 
     private double climbDisplacement = 0;
@@ -60,13 +60,13 @@ public class Player  {
             }
         }
 
-        if (input.isDown(Keys.SPACE) && !isJumping && !isOnLadder) {
+        if (input.isDown(Keys.SPACE) && !isJumping && !isClimbing) {
             isJumping = true;
             System.out.println("Jumping");
             velocityY = JUMP_VELOCITY;
         }
 
-        if (input.isDown(Keys.SPACE) && isOnLadder) {
+        if (input.isDown(Keys.SPACE) && isClimbing) {
             isJumping = false;
             player = new Point(player.x, Math.max(player.y - LADDER_STEP_SIZE,0));
             System.out.println("is climbing");
@@ -85,7 +85,7 @@ public class Player  {
         }
 
         if (!moved) {
-            isOnLadder = false;
+            isClimbing = false;
         }
 
     }
@@ -99,7 +99,7 @@ public class Player  {
         if (!hasHammer) {
             return new Rectangle(player.x, player.y, playerRight.getWidth(), playerRight.getHeight());
         } else {
-            return new Rectangle(player.x, player.y, playerHeldHammerRight.getWidth(), playerHeldHammerRight.getHeight() - 10);
+            return new Rectangle(player.x, player.y + 10, playerRight.getWidth(), playerRight.getHeight());
         }
 
     }
@@ -107,7 +107,7 @@ public class Player  {
     public void restartToStart() {
         player = OriginalPosition;
         isJumping = false;
-        isOnLadder = false;
+        isClimbing = false;
         hasHammer = false;
     }
 }

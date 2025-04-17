@@ -39,11 +39,11 @@ public class GameScreen {
     }
 
     public void touchLadder() {
-        player.isOnLadder = false;
+        player.isClimbing = false;
         for (Rectangle ladder : ladder.getLadderBounds()) {
             if (ladder.intersects(player.getPlayerBounds())) {
                 System.out.println("On ladder");
-                player.isOnLadder = true;
+                player.isClimbing = true;
 //                player.isJumping = false;
                 break;
             }
