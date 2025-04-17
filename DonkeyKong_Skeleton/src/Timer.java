@@ -4,7 +4,6 @@ import java.util.Properties;
 
 
 public class Timer {
-    private static final int START_TIME = 166;
     private final Font font;
     private final int MAX_FRAMES;
     private final static int FRAMES_PER_SECOND = 60;
@@ -29,6 +28,10 @@ public class Timer {
     public int getRemainingTime() {
         remainingTime = ((MAX_FRAMES - currentFrame) / FRAMES_PER_SECOND);
         remainingTime = Math.max(remainingTime, 0);
+
+        if (remainingTime == 0) {
+            isGameOver = true;
+        }
         return remainingTime;
     }
 

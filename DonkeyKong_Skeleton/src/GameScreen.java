@@ -161,6 +161,13 @@ public class GameScreen {
         }
     }
 
+    public void ranOutOfTime() {
+        if (timer.isGameOver) {
+            isLost = true;
+            isRunning = false;
+        }
+    }
+
     public void renderScreen(Input input) {
         isRunning = true;
         background.draw(Window.getWidth() / 2., Window.getHeight() / 2.);
@@ -180,6 +187,8 @@ public class GameScreen {
         touchLadder();
         touchHammer();
         touchDonkey();
+        ranOutOfTime();
+
     }
 }
 
