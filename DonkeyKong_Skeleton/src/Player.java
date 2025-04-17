@@ -20,22 +20,18 @@ public class Player  {
     private static final double GRAVITY = 0.2;
     private static final double TERMINAL_VELOCITY = -10;
     private static final double JUMP_VELOCITY = 5;
-    protected static final double MAX_HEIGHT = 62.5;
 
     protected boolean isJumping = false;
     protected boolean isClimbing = false;
     private boolean moved = false;
 
-    private double climbDisplacement = 0;
     private double velocityY = 0;
-    private final double groundLevel;
 
-    private Point OriginalPosition;
+    private final Point OriginalPosition;
 
     public Player(Properties gameProps) {
         player = new Point(Double.parseDouble(gameProps.getProperty("mario.start.x")),Double.parseDouble(gameProps.getProperty("mario.start.y")));
         OriginalPosition = player;
-        groundLevel = Double.parseDouble(gameProps.getProperty("mario.start.y"));
     }
 
 
@@ -76,11 +72,6 @@ public class Player  {
         if (isJumping) {
             velocityY = Math.max(velocityY - GRAVITY, TERMINAL_VELOCITY);
             player = new Point(player.x, Math.max(player.y - velocityY,0));
-
-//            if (player.y >= groundLevel) {
-//                player = new Point(player.x, groundLevel);
-//                velocityY = 0;
-//            }
             isJumping = false;
         }
 
@@ -90,12 +81,7 @@ public class Player  {
 
     }
 
-    public Point getPlayerPosition() {
-        return player;
-    }
-
     public Rectangle getPlayerBounds() {
-//        return new Rectangle(player.x - playerRight.getWidth() / 2, player.y - playerRight.getHeight() / 2, playerRight.getWidth(), playerRight.getHeight());
         if (!hasHammer) {
             return new Rectangle(player.x, player.y, playerRight.getWidth(), playerRight.getHeight());
         } else {

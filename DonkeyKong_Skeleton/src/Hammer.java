@@ -5,7 +5,7 @@ import bagel.util.*;
 
 public class Hammer {
     private final Image hammer = new Image("res/hammer.png");
-    private Point hammerStartCoords;
+    private final Point hammerStartCoords;
 
     protected boolean isHammerHeld = false;
 
@@ -19,7 +19,6 @@ public class Hammer {
     }
 
     public Rectangle getHammerBounds() {
-//        return new Rectangle(hammerStartCoords.x - hammer.getWidth() / 2, hammerStartCoords.y - hammer.getHeight() / 2, hammer.getWidth(), hammer.getHeight());
         return new Rectangle(hammerStartCoords.x , hammerStartCoords.y, hammer.getWidth(), hammer.getHeight());
 
     }

@@ -12,13 +12,11 @@ public class HomePage {
     private final String PROMPT;
     private final double TITLE_Y;
     private final double PROMPT_Y;
-    private int TITLE_SIZE;
-    private int PROMPT_SIZE;
     private final Image background = new Image("res/background.png");
 
     public HomePage(Properties gameProps, Properties messageProps) {
-        this.TITLE_SIZE = Integer.parseInt(gameProps.getProperty("home.title.fontSize"));
-        this.PROMPT_SIZE = Integer.parseInt(gameProps.getProperty("home.prompt.fontSize"));
+        int TITLE_SIZE = Integer.parseInt(gameProps.getProperty("home.title.fontSize"));
+        int PROMPT_SIZE = Integer.parseInt(gameProps.getProperty("home.prompt.fontSize"));
         this.TITLE_FONT = new Font(gameProps.getProperty("font"), TITLE_SIZE);
         this.PROMPT_FONT = new Font(gameProps.getProperty("font"), PROMPT_SIZE);
         this.TITLE = messageProps.getProperty("home.title");

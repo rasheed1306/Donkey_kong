@@ -5,9 +5,8 @@ import bagel.util.*;
 public class Barrel {
     private final Image barrel = new Image("res/barrel.png");
     protected int barrelCount;
-    private Point[] barrelCoords;
-    private Rectangle[] barrelBounds;
-    private String[] barrels = {"barrel.1", "barrel.2", "barrel.3", "barrel.4", "barrel.5"};
+    private final Point[] barrelCoords;
+    private final Rectangle[] barrelBounds;
 
     protected boolean[] barrelDestroyed;
     protected boolean[] isBarrelScoreAdded;
@@ -22,6 +21,7 @@ public class Barrel {
         isBarrelScoreAdded = new boolean[barrelCount];
         barrelDestroyed = new boolean[barrelCount];
         for (int i = 0; i < barrelCount; i++) {
+            String[] barrels = {"barrel.1", "barrel.2", "barrel.3", "barrel.4", "barrel.5"};
             String[] parts = gameProps.getProperty(barrels[i]).split(",");
             barrelCoords[i] = new Point(Integer.parseInt(parts[0]), Integer.parseInt(parts[1]));
             barrelBounds[i] = new Rectangle(barrelCoords[i].x, barrelCoords[i].y, barrel.getWidth(), barrel.getHeight());
@@ -38,10 +38,6 @@ public class Barrel {
                 barrel.draw(barrelCoords[i].x, barrelCoords[i].y);
             }
         }
-    }
-
-    public Point[] getBarrelPositions() {
-        return barrelCoords;
     }
 
     public Rectangle[] getBarrelBounds() {

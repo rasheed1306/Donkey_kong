@@ -1,4 +1,6 @@
 import bagel.*;
+
+import java.util.Arrays;
 import java.util.Properties;
 import bagel.util.*;
 
@@ -117,9 +119,7 @@ public class GameScreen {
         isWon = false;
         isLost = false;
 
-        for (int i = 0; i < barrels.barrelDestroyed.length; i++) {
-            barrels.barrelDestroyed[i] = false;
-        }
+        Arrays.fill(barrels.barrelDestroyed, false);
         scorePoints = 0;
     }
 
@@ -147,7 +147,6 @@ public class GameScreen {
         hammer.renderHammer();
         donkey.renderDonkey();
         player.renderPlayer(input);
-//        System.out.println("Player position: " + player.getPlayerPosition());
         score.getScore(calculateScore());
         timer.updateTimer();
         timer.renderTimer();

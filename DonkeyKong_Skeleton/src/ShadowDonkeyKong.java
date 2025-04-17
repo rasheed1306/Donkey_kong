@@ -3,9 +3,9 @@ import java.util.Properties;
 
 public class ShadowDonkeyKong extends AbstractGame {
 
-    private HomePage homePage;
-    private GameScreen gameScreen;
-    private EndGamePage endGamePage;
+    private final HomePage homePage;
+    private final GameScreen gameScreen;
+    private final EndGamePage endGamePage;
 
     private boolean shouldKeepShowing = false;
     private int score = 0;
@@ -17,7 +17,6 @@ public class ShadowDonkeyKong extends AbstractGame {
                 messageProps.getProperty("home.title"));
 
         // updates instance variables to reflect properties of game
-
         homePage = new HomePage(gameProps, messageProps);
         gameScreen = new GameScreen(gameProps, messageProps);
         endGamePage = new EndGamePage(gameProps, messageProps);
