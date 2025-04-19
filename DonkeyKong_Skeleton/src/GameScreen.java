@@ -179,11 +179,11 @@ public class GameScreen {
     public void renderScreen(Input input) {
         isRunning = true;
         background.draw(Window.getWidth() / 2., Window.getHeight() / 2.);
-        platform.renderObj(input);
-        barrels.renderObj(input);
-        ladder.renderObj(input);
-        hammer.renderObj(input);
-        donkey.renderObj(input);
+        platform.renderObj();
+        barrels.renderObj();
+        ladder.renderObj();
+        hammer.renderObj();
+        donkey.renderObj();
         player.renderObj(input);
         score.getScore(calculateScore());
         timer.updateTimer();
@@ -198,7 +198,6 @@ public class GameScreen {
 
     }
 }
-
 
 
 

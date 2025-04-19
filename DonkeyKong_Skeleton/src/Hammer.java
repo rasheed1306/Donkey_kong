@@ -19,9 +19,9 @@ public class Hammer extends GameScreenObject{
 
     // Renders hammer only if not picked up by object
     @Override
-    public void renderObj(Input input) {
+    public void renderObj() {
         if (!isHammerHeld) {
-            super.renderObj(input);
+            super.renderObj();
         }
     }
 }

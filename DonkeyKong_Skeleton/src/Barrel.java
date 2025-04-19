@@ -50,7 +50,7 @@ public class Barrel extends GameScreenObject {
 
     // Renders all non-destroyed barrels
     @Override
-    public void renderObj(Input input) {
+    public void renderObj() {
         for (int i = 0; i < objCount; i++) {
             if (!isBarrelDestroyed[i]) {
                 image.draw(objCoords[i].x, objCoords[i].y);

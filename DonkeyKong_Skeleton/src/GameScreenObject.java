@@ -24,6 +24,12 @@ public abstract class GameScreenObject {
         }
     }
 
+    public void renderObj() {
+        for (int i = 0; i < objCount; i++) {
+            image.draw(objCoords[i].x, objCoords[i].y);
+        }
+    }
+
     public Rectangle[] getObjBounds() {
         for (int i = 0; i < objCount; i++) {
             objBounds[i] = new Rectangle(objCoords[i].x, objCoords[i].y, image.getWidth(), image.getHeight());

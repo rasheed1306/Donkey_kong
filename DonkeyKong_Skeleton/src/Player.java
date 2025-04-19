@@ -22,9 +22,9 @@ public class Player extends GameScreenObject {
     // Movement constants not specified by game Properties
     private static final double STEP_SIZE = 3.5;
     private static final double LADDER_STEP_SIZE = 2;
-    private static final double GRAVITY = 0.2;
-    private static final double TERMINAL_VELOCITY = -10;
-    private static final double JUMP_VELOCITY = 5;
+    protected static final double GRAVITY = 0.2;
+    protected static final double TERMINAL_VELOCITY = -10;
+    protected static final double JUMP_VELOCITY = 5;
 
     public Player(Properties gameProps) {
         // Initialises right-facing image with starting coordinates
