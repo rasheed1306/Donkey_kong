@@ -37,7 +37,7 @@ public class GameScreen {
 
     public void touchLadder() {
         player.isClimbing = false;
-        for (Rectangle ladder : ladder.getLadderBounds()) {
+        for (Rectangle ladder : ladder.getObjBounds()) {
             if (ladder.intersects(player.getPlayerBounds())) {
                 System.out.println("On ladder");
                 player.isClimbing = true;
@@ -48,7 +48,7 @@ public class GameScreen {
 
     public void touchPlatform() {
         isOnPlatform = false;
-        for (Rectangle platform : platform.getPlatformBounds()) {
+        for (Rectangle platform : platform.getObjBounds()) {
             if (platform.intersects(player.getPlayerBounds())) {
                 System.out.println("Player intersects platform");
                 isOnPlatform = true;
@@ -60,13 +60,13 @@ public class GameScreen {
     }
 
     public void touchBarrel(Input input) {
-        Rectangle[] barrelBounds = barrels.getBarrelBounds();
-        for (int i = 0; i < barrels.barrelCount; i++) {
-            Rectangle barrel = barrelBounds[i];
+        Rectangle[] barrelBounds = barrels.getObjBounds();
+        for (int i = 0; i < barrels.objCount; i++) {
+            Rectangle barrel = barrels.getObjBounds()[i];
             if (player.getPlayerBounds().intersects(barrel)) {
                 if (player.hasHammer) {
                     System.out.println("Barrel " + i + " destroyed");
-                    barrels.barrelDestroyed[i] = true;
+                    barrels.updateBarrelStatus(true, i);
                 } else if (!player.hasHammer) {
                     timer.isGameOver = true;
                     isLost = true;
@@ -78,7 +78,7 @@ public class GameScreen {
     }
 
     public void touchDonkey() {
-        if ((player.getPlayerBounds().intersects(donkey.getDonkeyBounds()))) {
+        if (player.getPlayerBounds().intersects(donkey.getObjBounds()[0])) {
             System.out.println("Player touches donkey");
 
             isWon = player.hasHammer;
@@ -91,8 +91,8 @@ public class GameScreen {
 
     public int calculateScore() {
 
-        for (int i = 0; i < barrels.barrelCount; i++) {
-            if (barrels.barrelDestroyed[i] && !barrels.isBarrelScoreAdded[i]) {
+        for (int i = 0; i < barrels.objCount; i++) {
+            if (barrels.isBarrelDestroyed[i] && !barrels.isBarrelScoreAdded[i]) {
                 scorePoints += 100;
                 barrels.isBarrelScoreAdded[i] = true;
             }
@@ -119,15 +119,15 @@ public class GameScreen {
         isWon = false;
         isLost = false;
 
-        Arrays.fill(barrels.barrelDestroyed, false);
+        Arrays.fill(barrels.isBarrelDestroyed, false);
         scorePoints = 0;
     }
 
     public void touchHammer() {
-        if (player.getPlayerBounds().intersects(hammer.getHammerBounds())) {
+        if (player.getPlayerBounds().intersects(hammer.getObjBounds()[0])) {
             System.out.println("Player touched hammer");
-            hammer.isHammerHeld = true;
             player.hasHammer = true;
+            hammer.isHammerHeld = true;
         }
     }
 
@@ -141,11 +141,11 @@ public class GameScreen {
     public void renderScreen(Input input) {
         isRunning = true;
         background.draw(Window.getWidth() / 2., Window.getHeight() / 2.);
-        platform.renderPlatform();
-        barrels.renderBarrel();
-        ladder.renderLadder();
-        hammer.renderHammer();
-        donkey.renderDonkey();
+        platform.renderObj(input);
+        barrels.renderObj(input);
+        ladder.renderObj(input);
+        hammer.renderObj(input);
+        donkey.renderObj(input);
         player.renderPlayer(input);
         score.getScore(calculateScore());
         timer.updateTimer();

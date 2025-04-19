@@ -1,8 +1,8 @@
 import bagel.*;
-import java.util.Properties;
 import bagel.util.*;
+import java.util.Properties;
 
-public class Player  {
+public class Player {
     private final Image playerRight = new Image("res/mario_right.png");
     private final Image playerLeft = new Image("res/mario_left.png");
 
@@ -23,20 +23,19 @@ public class Player  {
 
     protected boolean isJumping = false;
     protected boolean isClimbing = false;
-    private boolean moved = false;
 
     private double velocityY = 0;
 
     private final Point OriginalPosition;
 
     public Player(Properties gameProps) {
-        player = new Point(Double.parseDouble(gameProps.getProperty("mario.start.x")),Double.parseDouble(gameProps.getProperty("mario.start.y")));
+        player = new Point(Double.parseDouble(gameProps.getProperty("mario.start.x")), Double.parseDouble(gameProps.getProperty("mario.start.y")));
         OriginalPosition = player;
     }
 
 
     public void renderPlayer(Input input) {
-        picture.draw(player.x,player.y);
+        picture.draw(player.x, player.y);
 
         if (input.isDown(Keys.LEFT)) {
             player = new Point(Math.max(player.x - STEP_SIZE, 0), player.y);
@@ -64,21 +63,15 @@ public class Player  {
 
         if (input.isDown(Keys.SPACE) && isClimbing) {
             isJumping = false;
-            player = new Point(player.x, Math.max(player.y - LADDER_STEP_SIZE,0));
+            player = new Point(player.x, Math.max(player.y - LADDER_STEP_SIZE, 0));
             System.out.println("is climbing");
-            moved = true;
         }
 
         if (isJumping) {
             velocityY = Math.max(velocityY - GRAVITY, TERMINAL_VELOCITY);
-            player = new Point(player.x, Math.max(player.y - velocityY,0));
+            player = new Point(player.x, Math.max(player.y - velocityY, 0));
             isJumping = false;
         }
-
-        if (!moved) {
-            isClimbing = false;
-        }
-
     }
 
     public Rectangle getPlayerBounds() {
@@ -97,5 +90,3 @@ public class Player  {
         hasHammer = false;
     }
 }
-
-
