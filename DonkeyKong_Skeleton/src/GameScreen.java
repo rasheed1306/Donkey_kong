@@ -23,7 +23,7 @@ public class GameScreen {
     protected boolean isWon = false;
     protected boolean isLost = false;
 
-    public GameScreen(Properties gameProps, Properties messageProps) {
+    public GameScreen(Properties gameProps) {
         this.platform = new Platform(gameProps);
         this.barrels = new Barrel(gameProps);
         this.ladder = new Ladder(gameProps);
@@ -38,7 +38,7 @@ public class GameScreen {
     public void touchLadder() {
         player.isClimbing = false;
         for (Rectangle ladder : ladder.getObjBounds()) {
-            if (ladder.intersects(player.getPlayerBounds())) {
+            if (ladder.intersects(player.getObjBounds()[0])) {
                 System.out.println("On ladder");
                 player.isClimbing = true;
                 break;
@@ -49,7 +49,7 @@ public class GameScreen {
     public void touchPlatform() {
         isOnPlatform = false;
         for (Rectangle platform : platform.getObjBounds()) {
-            if (platform.intersects(player.getPlayerBounds())) {
+            if (platform.intersects(player.getObjBounds()[0])) {
                 System.out.println("Player intersects platform");
                 isOnPlatform = true;
                 isScoreAdded = false;
@@ -59,15 +59,14 @@ public class GameScreen {
         player.isJumping = !isOnPlatform;
     }
 
-    public void touchBarrel(Input input) {
-        Rectangle[] barrelBounds = barrels.getObjBounds();
+    public void touchBarrel() {
         for (int i = 0; i < barrels.objCount; i++) {
             Rectangle barrel = barrels.getObjBounds()[i];
-            if (player.getPlayerBounds().intersects(barrel)) {
-                if (player.hasHammer) {
+            if (player.getObjBounds()[0].intersects(barrel)) {
+                if (GameScreenObject.isHammerHeld) {
                     System.out.println("Barrel " + i + " destroyed");
                     barrels.updateBarrelStatus(true, i);
-                } else if (!player.hasHammer) {
+                } else if (!GameScreenObject.isHammerHeld) {
                     timer.isGameOver = true;
                     isLost = true;
                     isRunning = false;
@@ -78,10 +77,10 @@ public class GameScreen {
     }
 
     public void touchDonkey() {
-        if (player.getPlayerBounds().intersects(donkey.getObjBounds()[0])) {
+        if (player.getObjBounds()[0].intersects(donkey.getObjBounds()[0])) {
             System.out.println("Player touches donkey");
 
-            isWon = player.hasHammer;
+            isWon = GameScreenObject.isHammerHeld;
             isLost = !isWon;
 
             timer.isGameOver = isWon;
@@ -99,7 +98,7 @@ public class GameScreen {
         }
 
         for (Rectangle area : barrels.getJumpingBarrelBounds()) {
-            if (area.intersects(player.getPlayerBounds()) && player.isJumping) {
+            if (area.intersects(player.getObjBounds()[0]) && player.isJumping) {
                 if (!isScoreAdded) {
                     scorePoints += 30;
                     isScoreAdded = true;
@@ -115,7 +114,7 @@ public class GameScreen {
         player.restartToStart();
         timer.resetTimer();
 
-        hammer.isHammerHeld = false;
+        GameScreenObject.isHammerHeld = false;
         isWon = false;
         isLost = false;
 
@@ -124,10 +123,10 @@ public class GameScreen {
     }
 
     public void touchHammer() {
-        if (player.getPlayerBounds().intersects(hammer.getObjBounds()[0])) {
+        if (player.getObjBounds()[0].intersects(hammer.getObjBounds()[0])) {
             System.out.println("Player touched hammer");
-            player.hasHammer = true;
-            hammer.isHammerHeld = true;
+            GameScreenObject.isHammerHeld = true;
+//            hammer.isHammerHeld = true;
         }
     }
 
@@ -146,12 +145,12 @@ public class GameScreen {
         ladder.renderObj(input);
         hammer.renderObj(input);
         donkey.renderObj(input);
-        player.renderPlayer(input);
+        player.renderObj(input);
         score.getScore(calculateScore());
         timer.updateTimer();
         timer.renderTimer();
 
-        touchBarrel(input);
+        touchBarrel();
         touchPlatform();
         touchLadder();
         touchHammer();

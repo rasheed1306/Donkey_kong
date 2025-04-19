@@ -1,57 +1,58 @@
 import bagel.*;
-import bagel.util.*;
 import java.util.Properties;
+import bagel.util.*;
 
-public class Player {
-    private final Image playerRight = new Image("res/mario_right.png");
-    private final Image playerLeft = new Image("res/mario_left.png");
+public class Player extends GameScreenObject {
 
-    private final Image playerHeldHammerRight = new Image("res/mario_hammer_right.png");
-    private final Image playerHeldHammerLeft = new Image("res/mario_hammer_left.png");
+    private static final Image pictureRight = new Image("res/mario_right.png");
+    private static final Image pictureLeft = new Image("res/mario_left.png");
+    private static final Image pictureHammerRight = new Image("res/mario_hammer_right.png");
+    private static final Image pictureHammerLeft = new Image("res/mario_hammer_left.png");
 
-    protected boolean hasHammer = false;
+    private Point position;
+    private Image picture;
+    private double velocityY = 0;
 
-    private Point player;
-    private Image picture = playerRight;
+    protected boolean isJumping = false;
+    protected boolean isClimbing = false;
 
-    // these are static because they should exist regardless of whether the game is being played
+
     private static final double STEP_SIZE = 3.5;
     private static final double LADDER_STEP_SIZE = 2;
     private static final double GRAVITY = 0.2;
     private static final double TERMINAL_VELOCITY = -10;
     private static final double JUMP_VELOCITY = 5;
 
-    protected boolean isJumping = false;
-    protected boolean isClimbing = false;
-
-    private double velocityY = 0;
-
-    private final Point OriginalPosition;
-
     public Player(Properties gameProps) {
-        player = new Point(Double.parseDouble(gameProps.getProperty("mario.start.x")), Double.parseDouble(gameProps.getProperty("mario.start.y")));
-        OriginalPosition = player;
+        super(pictureRight, initCoords(gameProps));
+        position = objCoords[0];
+        picture = pictureRight;
     }
 
+    public static Point[] initCoords(Properties gameProps) {
+        Point[] coords = new Point[1];
+        coords[0] = new Point(Double.parseDouble(gameProps.getProperty("mario.start.x")), Double.parseDouble(gameProps.getProperty("mario.start.y")));
+        return coords;
+    }
 
-    public void renderPlayer(Input input) {
-        picture.draw(player.x, player.y);
+    @Override
+    public void renderObj(Input input) {
+        picture.draw(position.x, position.y);
 
         if (input.isDown(Keys.LEFT)) {
-            player = new Point(Math.max(player.x - STEP_SIZE, 0), player.y);
-            if (hasHammer) {
-                picture = playerHeldHammerLeft;
+            position = new Point(Math.max(position.x - STEP_SIZE, 0), position.y);
+            if (isHammerHeld) {
+                picture = pictureHammerLeft;
             } else {
-                picture = playerLeft;
+                picture = pictureLeft;
             }
         }
-
         if (input.isDown(Keys.RIGHT)) {
-            player = new Point(Math.min(player.x + STEP_SIZE, Window.getWidth()), player.y);
-            if (hasHammer) {
-                picture = playerHeldHammerRight;
+            position = new Point(Math.min(position.x + STEP_SIZE, Window.getWidth()), position.y);
+            if (isHammerHeld) {
+                picture = pictureHammerRight;
             } else {
-                picture = playerRight;
+                picture = pictureRight;
             }
         }
 
@@ -63,30 +64,33 @@ public class Player {
 
         if (input.isDown(Keys.SPACE) && isClimbing) {
             isJumping = false;
-            player = new Point(player.x, Math.max(player.y - LADDER_STEP_SIZE, 0));
-            System.out.println("is climbing");
+            position = new Point(position.x, Math.max(position.y - LADDER_STEP_SIZE,0));
+            System.out.println("Is climbing");
         }
 
         if (isJumping) {
             velocityY = Math.max(velocityY - GRAVITY, TERMINAL_VELOCITY);
-            player = new Point(player.x, Math.max(player.y - velocityY, 0));
-            isJumping = false;
+            position = new Point(position.x, Math.max(position.y - velocityY,0));
         }
     }
 
-    public Rectangle getPlayerBounds() {
-        if (!hasHammer) {
-            return new Rectangle(player.x, player.y, playerRight.getWidth(), playerRight.getHeight());
+    @Override
+    public Rectangle[] getObjBounds() {
+        Rectangle[] playerBounds = new Rectangle[1];
+        if (!isHammerHeld) {
+            playerBounds[0] =  new Rectangle(position.x, position.y, pictureRight.getWidth(), pictureRight.getHeight());
         } else {
-            return new Rectangle(player.x, player.y + 10, playerRight.getWidth(), playerRight.getHeight());
+            playerBounds[0] = new Rectangle(position.x, position.y + 10 , pictureRight.getWidth(), pictureRight.getHeight());
         }
+        return playerBounds;
 
     }
 
     public void restartToStart() {
-        player = OriginalPosition;
+        position = objCoords[0];
         isJumping = false;
         isClimbing = false;
-        hasHammer = false;
+        isHammerHeld = false;
     }
+
 }

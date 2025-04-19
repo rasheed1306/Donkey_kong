@@ -1,6 +1,5 @@
 import bagel.*;
 import bagel.util.*;
-import java.util.Properties;
 
 public abstract class GameScreenObject {
     protected final Image image;
@@ -8,29 +7,16 @@ public abstract class GameScreenObject {
     protected final int objCount;
     protected Rectangle[] objBounds;
 
-    protected boolean isHammerHeld;
-
-    public static Point[] initCoords(Properties gameProps) {
-        return new Point[2];
-    }
-
+    protected static boolean isHammerHeld;
 
     public GameScreenObject(Image image, Point[] objCoords) {
         this.image = image;
         this.objCoords = objCoords;
         this.objCount = objCoords.length;
         this.objBounds = new Rectangle[objCount];
-        this.isHammerHeld = false;
+        isHammerHeld = false;
 
     }
-
-
-
-    public boolean isHammerHeld() {
-        return isHammerHeld;
-    }
-
-    public void setHammerHeld(boolean held) {this.isHammerHeld = held; }
 
     public void renderObj(Input input) {
         for (int i = 0; i < objCount; i++) {

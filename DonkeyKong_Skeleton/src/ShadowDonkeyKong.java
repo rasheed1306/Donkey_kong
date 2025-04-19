@@ -18,7 +18,7 @@ public class ShadowDonkeyKong extends AbstractGame {
 
         // updates instance variables to reflect properties of game
         homePage = new HomePage(gameProps, messageProps);
-        gameScreen = new GameScreen(gameProps, messageProps);
+        gameScreen = new GameScreen(gameProps);
         endGamePage = new EndGamePage(gameProps, messageProps);
 
     }

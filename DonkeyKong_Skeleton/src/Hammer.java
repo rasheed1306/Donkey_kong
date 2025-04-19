@@ -17,7 +17,7 @@ public class Hammer extends GameScreenObject{
 
     @Override
     public void renderObj(Input input) {
-        if (!super.isHammerHeld) {
+        if (!isHammerHeld) {
             super.renderObj(input);
         }
     }
