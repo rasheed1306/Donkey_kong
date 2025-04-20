@@ -1,0 +1,41 @@
+40467ac - Rasheed Mohammed, 7 minutes ago : Delete unnecessary files
+34ddd55 - Rasheed Mohammed, 15 minutes ago : Merge branch 'main' of https://swen20003.eng.unimelb.edu.au/swen20003-s1-2025/ramohammed/ramohammed-project-1
+8a05d8d - Rasheed Mohammed, 28 minutes ago : Implement objects falling onto platform
+b41d99b - Rasheed Mohammed, 12 hours ago : Remove redundancy in code
+ff55b24 - Rasheed Mohammed, 16 hours ago : Simplify code
+536350b - Rasheed Mohammed, 18 hours ago : Add comments to code
+5365304 - Rasheed Mohammed, 21 hours ago : Inheritance for gameScrenObject Player
+d8db632 - Rasheed Mohammed, 21 hours ago : Simplified Code using Inheritance
+06350b4 - Rasheed Mohammed, 3 days ago : Removed more redundant code
+7f1239e - Rasheed Mohammed, 3 days ago : Rename variables and redundant code
+fb36d2c - Rasheed Mohammed, 3 days ago : Fix add runOutOfTime mechanism
+480dcb2 - Rasheed Mohammed, 3 days ago : Fix score count destroying barrels
+2fad36a - Rasheed Mohammed, 3 days ago : Fix player with hammer rendering
+d215c6f - Rasheed Mohammed, 6 days ago : Fix when player climbs ladder
+7760116 - Rasheed Mohammed, 6 days ago : Implement jumping barrel score increase
+17cb7c3 - Rasheed Mohammed, 6 days ago : Fix playerHammerImage height rendering
+4d61942 - Rasheed Mohammed, 7 days ago : Simplify ShadowDonkeyKong class
+9d41b80 - Rasheed Mohammed, 7 days ago : Fix timer resetting bug
+7bc7ed1 - Rasheed Mohammed, 7 days ago : Revert "Add donkey functionality" Add Score counting
+2500c52 - Rasheed Mohammed, 7 days ago : initial attempt of implementing scores
+cfca653 - Rasheed Mohammed, 7 days ago : Add donkey functionality
+a74eb25 - Rasheed Mohammed, 7 days ago : Add player destroying barrels with hammer
+f3397cc - Rasheed Mohammed, 7 days ago : Add hammer being held by player
+69d4667 - Rasheed Mohammed, 7 days ago : Add restart Mechanism
+1b3c948 - Rasheed Mohammed, 7 days ago : Added BoundingBox to barrel, donkey, hammer classes
+d1467c2 - Rasheed Mohammed, 7 days ago : Add timer to GameScreen
+6552c46 - Rasheed Mohammed, 8 days ago : Add falling from ladder mechanism
+a1c671d - Rasheed Mohammed, 8 days ago : Add climbing ladder mechanism
+3a448cf - Rasheed Mohammed, 8 days ago : Add player jump and falling motion
+be5dcd8 - Rasheed Mohammed, 9 days ago : Added EndGameScreen and Score system
+beb9b5e - Rasheed Mohammed, 9 days ago : Update player initial position
+9931760 - Rasheed Mohammed, 9 days ago : add player and movement
+0b16507 - Rasheed Mohammed, 9 days ago : Encapsulate gameScreen structure
+13519b8 - Rasheed Mohammed, 9 days ago : Render Barrels
+cb8ac0e - Rasheed Mohammed, 9 days ago : Correct ladder configurations
+de51a0b - Rasheed Mohammed, 9 days ago : Add class TitlePage
+56bc891 - Rasheed Mohammed, 13 days ago : Add home screen
+8d47c20 - Rasheed Mohammed, 13 days ago : Pull from gitlab
+817d6f8 - Rasheed Mohammed, 13 days ago : Change orientation of files
+e14e5a5 - ramohammed, 2 weeks ago : Add readme file
+82da3e5 - Rasheed, 2 weeks ago : Intial Commit. Import skelton code into project.
