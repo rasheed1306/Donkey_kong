@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # **Shadow Donkey Kong - Game Guide & Git Log Instructions**
 
 ## **📌 Overview**
@@ -86,6 +85,3 @@ chmod +x generate_git_log.sh
 ./generate_git_log.sh
 ```
 
-=======
-This is a donkygong game made for University project.
->>>>>>> ff55b2487536957c6dfda73a48406725acb471a6
