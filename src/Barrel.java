@@ -11,9 +11,20 @@ public class Barrel extends GameScreenObject {
     // Constant Height of Barrel
     static final double BARREL_HEIGHT = 32.5;
 
+    private Point[] position;
+    private double fallingVelocity = 0;
+    private static final double GRAVITY = 0.2;
+    private static final double TERMINAL_VELOCITY = -10;
+    private static double fallingDisplacement;
+
     public Barrel(Properties gameProps) {
         super(new Image("res/barrel.png"), initCoords(gameProps));
         initBarrelStatus();
+
+        position = new Point[objCount];
+        for (int i = 0; i < objCount; i++) {
+            position[i] = new Point(objCoords[i].x, objCoords[i].y - 75);
+        }
     }
 
     // Initialises barrel coordinates from Game Properties
@@ -51,10 +62,12 @@ public class Barrel extends GameScreenObject {
 //     Renders all non-destroyed barrels
     @Override
     public void renderObj() {
-        for (int i = 0; i < objCount; i++) {
-            if (!isBarrelDestroyed[i]) {
-                image.draw(objCoords[i].x, objCoords[i].y);
+        if (!renderFallingObj()) {
+            for (int i = 0; i < objCount; i++) {
+                if (!isBarrelDestroyed[i]) {
+                    image.draw(objCoords[i].x, objCoords[i].y);
 
+                }
             }
         }
     }

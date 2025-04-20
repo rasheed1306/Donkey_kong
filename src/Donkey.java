@@ -14,4 +14,11 @@ public class Donkey extends GameScreenObject{
         coords[0] = new Point(Double.parseDouble(gameProps.getProperty("donkey.start.x")), Double.parseDouble(gameProps.getProperty("donkey.start.y")));
         return coords;
     }
+
+    @Override
+    public void renderObj() {
+        if (!renderFallingObj()) {
+            super.renderObj();
+        }
+    }
 }

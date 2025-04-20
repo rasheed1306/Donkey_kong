@@ -43,46 +43,48 @@ public class Player extends GameScreenObject {
     // Renders player image based on user input
     @Override
     public void renderObj(Input input) {
-        picture.draw(position.x, position.y);
+        if (!renderFallingObj()) {
+            picture.draw(position.x, position.y);
 
-        // Handles left movement
-        if (input.isDown(Keys.LEFT)) {
-            position = new Point(Math.max(position.x - STEP_SIZE, 0), position.y);
-            if (isHammerHeld) {
-                picture = pictureHammerLeft;
-            } else {
-                picture = pictureLeft;
+            // Handles left movement
+            if (input.isDown(Keys.LEFT)) {
+                position = new Point(Math.max(position.x - STEP_SIZE, 0), position.y);
+                if (isHammerHeld) {
+                    picture = pictureHammerLeft;
+                } else {
+                    picture = pictureLeft;
+                }
             }
-        }
 
-        // Handles right movement
-        if (input.isDown(Keys.RIGHT)) {
-            position = new Point(Math.min(position.x + STEP_SIZE, Window.getWidth()), position.y);
-            if (isHammerHeld) {
-                picture = pictureHammerRight;
-            } else {
-                picture = pictureRight;
+            // Handles right movement
+            if (input.isDown(Keys.RIGHT)) {
+                position = new Point(Math.min(position.x + STEP_SIZE, Window.getWidth()), position.y);
+                if (isHammerHeld) {
+                    picture = pictureHammerRight;
+                } else {
+                    picture = pictureRight;
+                }
             }
-        }
 
-        // Handles jumping only when not already jumping or climbing
-        if (input.isDown(Keys.SPACE) && !isJumping && !isClimbing) {
-            isJumping = true;
-            System.out.println("Jumping");
-            velocityY = JUMP_VELOCITY;
-        }
+            // Handles jumping only when not already jumping or climbing
+            if (input.isDown(Keys.SPACE) && !isJumping && !isClimbing) {
+                isJumping = true;
+                System.out.println("Jumping");
+                velocityY = JUMP_VELOCITY;
+            }
 
-        // Handles player climbing
-        if (input.isDown(Keys.SPACE) && isClimbing) {
-            isJumping = false;
-            position = new Point(position.x, Math.max(position.y - LADDER_STEP_SIZE,0));
-            System.out.println("Is climbing");
-        }
+            // Handles player climbing
+            if (input.isDown(Keys.SPACE) && isClimbing) {
+                isJumping = false;
+                position = new Point(position.x, Math.max(position.y - LADDER_STEP_SIZE, 0));
+                System.out.println("Is climbing");
+            }
 
-        // Handles jumping as long as isJumping is set true
-        if (isJumping) {
-            velocityY = Math.max(velocityY - GRAVITY, TERMINAL_VELOCITY);
-            position = new Point(position.x, Math.max(position.y - velocityY,0));
+            // Handles jumping as long as isJumping is set true
+            if (isJumping) {
+                velocityY = Math.max(velocityY - GRAVITY, TERMINAL_VELOCITY);
+                position = new Point(position.x, Math.max(position.y - velocityY, 0));
+            }
         }
     }
 

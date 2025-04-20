@@ -70,6 +70,15 @@ public class GameScreen {
         player.isJumping = !isOnPlatform;
     }
 
+//    public void barrelTouchPlatform() {
+//        for (Rectangle platform: platform.getObjBounds()) {
+//            if (platform.intersects(barrels.getObjBounds()[0])) {
+//                System.out.println("Barrel on platform");
+//                GameScreenObject.isOnPlatform = true;
+//            }
+//        }
+//    }
+
     // Checks if player touches barrel. Handles whether game is ended or score is handed depending on whether
     // hammer is held
     public void touchBarrel() {
@@ -141,6 +150,7 @@ public class GameScreen {
         // Resets player position and timer
         player.restartToStart();
         timer.resetTimer();
+        GameScreenObject.resetFallingObj();
 
         // Reset game flags
         GameScreenObject.isHammerHeld = false;
@@ -195,6 +205,7 @@ public class GameScreen {
         touchHammer();
         touchDonkey();
         ranOutOfTime();
+//        barrelTouchPlatform();
 
     }
 }

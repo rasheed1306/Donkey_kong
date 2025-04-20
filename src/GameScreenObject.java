@@ -8,6 +8,11 @@ public abstract class GameScreenObject {
     protected Rectangle[] objBounds;
 
     protected static boolean isHammerHeld;
+    private Point[] position;
+    private static double fallingVelocity = 0;
+    private static final double GRAVITY = 0.2;
+    private static double fallingDisplacement = 0;
+    private final static double FALLING_DISP = 75;
 
     public GameScreenObject(Image image, Point[] objCoords) {
         this.image = image;
@@ -16,6 +21,11 @@ public abstract class GameScreenObject {
         this.objBounds = new Rectangle[objCount];
 
         isHammerHeld = false;
+
+        position = new Point[objCount];
+        for (int i = 0; i < objCount; i++) {
+            position[i] = new Point(objCoords[i].x, objCoords[i].y - FALLING_DISP);
+        }
     }
 
     public void renderObj(Input input) {
@@ -28,6 +38,26 @@ public abstract class GameScreenObject {
         for (int i = 0; i < objCount; i++) {
             image.draw(objCoords[i].x, objCoords[i].y);
         }
+    }
+
+    public boolean renderFallingObj() {
+        fallingVelocity = fallingVelocity - GRAVITY;
+
+        fallingDisplacement -= fallingVelocity;
+        if (fallingDisplacement >= FALLING_DISP) {
+            return false;
+        }
+
+        for (int i = 0; i < objCount; i++) {
+            position[i] = new Point(position[i].x, position[i].y - fallingVelocity);
+            image.draw(position[i].x, position[i].y);
+        }
+        return true;
+    }
+
+    public static void resetFallingObj() {
+        fallingDisplacement = 0;
+        fallingVelocity = 0;
     }
 
 
